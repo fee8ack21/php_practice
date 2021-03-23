@@ -1,80 +1,125 @@
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: rgb(219, 219, 219);
+}
+
+/*  */
+
 body {
   letter-spacing: 0.2rem;
+  overflow-x: hidden;
 }
+
 /* 登入頁、註冊頁、忘記密碼頁 */
+
 .form-body {
   background-color: #6c757d;
 }
-.login-wrap form,
-.signup-wrap form,
-.forgot-wrap form {
+
+.login-wrap form, .signup-wrap form, .forgot-wrap form {
   width: 500px;
   margin: 0px auto 0px auto;
   border: 1px solid #ced4da;
 }
 
-.form-btn-group a,
-.form-btn-group input {
+.form-btn-group a, .form-btn-group input {
   width: 80px;
 }
+
 /* 後台頁 */
+
 .dashboard-wrap .header-icon-wrap {
   font-size: 12px;
 }
+
 .dashboard-wrap .header-icon-wrap i {
   font-size: 20px;
   transition: 0.15s;
 }
+
 .dashboard-wrap .header-icon-wrap .fa-sort-down::before {
   position: relative;
   top: -2px;
 }
-.dashboard-wrap .header-icon-wrap a > i:active {
+
+.dashboard-wrap .header-icon-wrap a>i:active {
   transform: scale(0.95);
 }
+
 /*  */
+
 .dashboard-wrap aside {
   position: absolute;
   left: -250px;
   transition: 0.15s;
 }
+
 .dashboard-wrap aside.active {
   position: absolute !important;
   left: 0px !important;
 }
+
 @media screen and (min-width: 768px) {
   .dashboard-wrap aside {
     position: absolute;
     left: 0px;
   }
 }
+
 /*  */
+
 .dashboard-wrap main {
+  width: 100vw;
+  height: calc(100vh - 60px);
   position: absolute;
   left: 0px;
   transition: 0.15s;
 }
+
 .dashboard-wrap main.active {
   position: absolute !important;
   left: 250px !important;
 }
+
 @media screen and (min-width: 768px) {
   .dashboard-wrap main {
+    width: calc(100vw - 250px);
     position: absolute;
     left: 250px;
   }
 }
+
+.product-page-wrap>div {
+  /* 60 18 58 38 */
+  height: calc(100vh - 198px);
+  overflow-y: scroll;
+}
+
 /*  */
+
 .dashboard-wrap .accordion li i {
   width: 30px;
 }
+
 .dashboard-wrap .accordion-item {
   font-size: 14px;
   padding: 12px 0 12px 0;
 }
+
 .dashboard-wrap .accordion-item.active {
   background-color: #545b62 !important;
 }
+
 .dashboard-wrap .accordion-item .fa-angle-down {
   position: relative;
   transition: 0.3s;
@@ -84,6 +129,7 @@ body {
   left: -3px;
   transform: rotate(180deg);
 }
+
 .dashboard-wrap .accordion-item-list {
   max-height: 0px;
   overflow: hidden;
@@ -91,9 +137,11 @@ body {
   background-color: gray;
   border-radius: 0 0 0.25rem 0.25rem;
 }
+
 .dashboard-wrap aside .accordion-item-list.active {
   max-height: 500px;
 }
+
 .dashboard-wrap .accordion-item-list a {
   display: block;
   font-size: 14px;
@@ -101,6 +149,34 @@ body {
   padding: 12px 0 12px 0;
   transition: 0.15s;
 }
+
 .dashboard-wrap .accordion-item-list a:hover {
   color: rgba(255, 255, 255, 1);
+}
+
+table {
+  /* table-layout: fixed; */
+}
+
+main table th {
+  max-width: 200px;
+  font-size: 14px;
+}
+
+main table td {
+  line-height: 41.5px;
+  max-width: 200px;
+  font-size: 14px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/*  */
+.modal-content{
+  width: 500px;
+}
+.modal.show{
+  display: flex !important;
+  align-items: center;
 }

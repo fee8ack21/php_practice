@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION['admin_state'])) {
     if ($_SESSION['admin_state'] === 'success') {
-        header('Location:./dashboard.php');
+        header('Location:./dashboard_home.php');
     }
 }
 ?>
@@ -32,7 +32,7 @@ if (isset($_SESSION['admin_state'])) {
             </div>
             <div class="form-group">
                 <label for="loginPassword">密碼</label>
-                <input type="text" class="form-control" id="loginPassword" name="loginPassword" placeholder="請輸入密碼">
+                <input type="password" class="form-control" id="loginPassword" name="loginPassword" placeholder="請輸入密碼">
                 <small class="text-danger" id="loginPasswordHint"></small>
             </div>
             <div class="form-btn-group d-flex justify-content-center">

@@ -44,7 +44,7 @@ $(document).ready(function () {
           $('#loginPassword').addClass('is-invalid');
           $('#loginPasswordHint').text('密碼錯誤');
         } else if (response === '登入成功') {
-          window.location = './dashboard.php';
+          window.location = './dashboard_home.php';
         }
       }, // 成功後要執行的函數
     });

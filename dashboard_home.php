@@ -34,7 +34,7 @@ if (isset($_SESSION['admin_state'])) {
                     <i class="far fa-user-circle text-white"></i>
                     <span class="admin-user text-white ml-2 text-capitalize"><?php echo $_SESSION['admin_user'] ?></span>
                 </p>
-                <a href="./doAction_dashboard.php?state=logout" class="d-flex align-items-center text-decoration-none bg-secondary text-white py-2 px-3 rounded">
+                <a href="./doAction_dashboard.php?state=logout" class="d-flex align-items-center text-decoration-none bg-danger text-white py-2 px-3 rounded">
                     Log Out
                 </a>
             </div>
@@ -43,7 +43,7 @@ if (isset($_SESSION['admin_state'])) {
             <aside style="width: 250px;">
                 <ul class="accordion bg-secondary p-2 mb-0 list-unstyled" style="height: calc(100vh - 60px);overflow-y:scroll;">
                     <li>
-                        <a href="./dashboard.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
+                        <a href="./dashboard_home.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
                             <i class="fas fa-home"></i>
                             首頁
                             <i class="fas fa-angle-down d-flex justify-content-center align-items-center" style="color: transparent;"></i>
@@ -57,13 +57,13 @@ if (isset($_SESSION['admin_state'])) {
                         </a>
                         <ul class="accordion-item-list list-unstyled">
                             <li>
-                                <a href="#" class="px-4 text-decoration-none">List1-1</a>
+                                <a href="./dashboard_product.php" class="px-4 text-decoration-none">商品列表</a>
                             </li>
                             <li>
-                                <a href="#" class="px-4 text-decoration-none">List1-2</a>
+                                <a href="#" class="px-4 text-decoration-none">商品列表</a>
                             </li>
                             <li>
-                                <a href="#" class="px-4 text-decoration-none">List1-3</a>
+                                <a href="#" class="px-4 text-decoration-none">商品列表</a>
                             </li>
                         </ul>
                     </li>
@@ -83,6 +83,12 @@ if (isset($_SESSION['admin_state'])) {
                         <a href="#" class="px-4 text-decoration-none">List2-3</a>
                     </li>
                 </ul>
+                </li>
+                <li>
+                    <a href="./dashboard_location.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
+                        <i class="fas fa-map-marked-alt"></i>據點消息
+                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center" style="color: transparent;"></i>
+                    </a>
                 </li>
                 <li>
                     <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
@@ -140,11 +146,10 @@ if (isset($_SESSION['admin_state'])) {
                 </li>
                 </ul>
             </aside>
-            <main class="position-absolute p-2">
+            <main class="position-absolute px-0 px-md-4 py-2">
                 <nav style="--bs-breadcrumb-divider: '>';font-size:12px;font-weight:bold;" aria-label="breadcrumb">
                     <ol class="breadcrumb" style="background-color: transparent;">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
                     </ol>
                 </nav>
             </main>
