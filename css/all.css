@@ -1,0 +1,106 @@
+body {
+  letter-spacing: 0.2rem;
+}
+/* 登入頁、註冊頁、忘記密碼頁 */
+.form-body {
+  background-color: #6c757d;
+}
+.login-wrap form,
+.signup-wrap form,
+.forgot-wrap form {
+  width: 500px;
+  margin: 0px auto 0px auto;
+  border: 1px solid #ced4da;
+}
+
+.form-btn-group a,
+.form-btn-group input {
+  width: 80px;
+}
+/* 後台頁 */
+.dashboard-wrap .header-icon-wrap {
+  font-size: 12px;
+}
+.dashboard-wrap .header-icon-wrap i {
+  font-size: 20px;
+  transition: 0.15s;
+}
+.dashboard-wrap .header-icon-wrap .fa-sort-down::before {
+  position: relative;
+  top: -2px;
+}
+.dashboard-wrap .header-icon-wrap a > i:active {
+  transform: scale(0.95);
+}
+/*  */
+.dashboard-wrap aside {
+  position: absolute;
+  left: -250px;
+  transition: 0.15s;
+}
+.dashboard-wrap aside.active {
+  position: absolute !important;
+  left: 0px !important;
+}
+@media screen and (min-width: 768px) {
+  .dashboard-wrap aside {
+    position: absolute;
+    left: 0px;
+  }
+}
+/*  */
+.dashboard-wrap main {
+  position: absolute;
+  left: 0px;
+  transition: 0.15s;
+}
+.dashboard-wrap main.active {
+  position: absolute !important;
+  left: 250px !important;
+}
+@media screen and (min-width: 768px) {
+  .dashboard-wrap main {
+    position: absolute;
+    left: 250px;
+  }
+}
+/*  */
+.dashboard-wrap .accordion li i {
+  width: 30px;
+}
+.dashboard-wrap .accordion-item {
+  font-size: 14px;
+  padding: 12px 0 12px 0;
+}
+.dashboard-wrap .accordion-item.active {
+  background-color: #545b62 !important;
+}
+.dashboard-wrap .accordion-item .fa-angle-down {
+  position: relative;
+  transition: 0.3s;
+}
+
+.dashboard-wrap .accordion-item.active .fa-angle-down {
+  left: -3px;
+  transform: rotate(180deg);
+}
+.dashboard-wrap .accordion-item-list {
+  max-height: 0px;
+  overflow: hidden;
+  transition: 0.3s;
+  background-color: gray;
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+.dashboard-wrap aside .accordion-item-list.active {
+  max-height: 500px;
+}
+.dashboard-wrap .accordion-item-list a {
+  display: block;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 12px 0 12px 0;
+  transition: 0.15s;
+}
+.dashboard-wrap .accordion-item-list a:hover {
+  color: rgba(255, 255, 255, 1);
+}
