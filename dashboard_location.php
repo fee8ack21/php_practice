@@ -35,7 +35,7 @@ if (isset($_SESSION['admin_state'])) {
                     <span class="admin-user text-white ml-2 text-capitalize"><?php echo $_SESSION['admin_user'] ?></span>
                 </p>
                 <a href="./doAction_dashboard.php?state=logout" class="d-flex align-items-center text-decoration-none bg-danger text-white py-2 px-3 rounded">
-                    Log Out
+                    登出
                 </a>
             </div>
         </header>
@@ -149,8 +149,8 @@ if (isset($_SESSION['admin_state'])) {
             <main class="position-absolute px-0 px-md-4 py-2">
                 <nav style="--bs-breadcrumb-divider: '>';font-size:12px;font-weight:bold;" aria-label="breadcrumb">
                     <ol class="breadcrumb" style="background-color: transparent;">
-                        <li class="breadcrumb-item"><a href="./dashboard_home.php">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Location</li>
+                        <li class="breadcrumb-item"><a href="./dashboard_home.php">首頁</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">據點消息</li>
                     </ol>
                 </nav>
                 <div class="product-page-wrap px-3">
@@ -158,19 +158,22 @@ if (isset($_SESSION['admin_state'])) {
                         <table class="table w-100">
                             <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Position</th>
-                                    <th scope="col">Address</th>
-                                    <th scope="col">Lng</th>
-                                    <th scope="col">Lat</th>
-                                    <th scope="col">Phone</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Operate</th>
+                                    <th scope="col">編號</th>
+                                    <th scope="col">名稱</th>
+                                    <th scope="col">區域</th>
+                                    <th scope="col">地址</th>
+                                    <th scope="col">經度</th>
+                                    <th scope="col">緯度</th>
+                                    <th scope="col">電話</th>
+                                    <th scope="col">描述</th>
+                                    <th scope="col">圖片</th>
+                                    <th scope="col">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <!--  -->
+                                <!--  -->
+                                <!--  -->
                                 <?php
                                 require_once('db_connect.php');
                                 $query1 = "select * from dashboard_location WHERE valid = 1 ";
@@ -185,7 +188,7 @@ if (isset($_SESSION['admin_state'])) {
                                         // print_r($rows);
                                         foreach ($rows as $val) {
                                             echo
-                                            '<tr>
+                                                '<tr>
                                                 <td>' . $val["id"] . '</td>
                                                 <td>' . $val["name"] . '</td>
                                                 <td>' . $val["position"] . '</td>
@@ -194,11 +197,11 @@ if (isset($_SESSION['admin_state'])) {
                                                 <td>' . $val["lat"] . '</td>
                                                 <td>' . $val["phone"] . '</td>
                                                 <td>' . $val["description"] . '</td>
-                                                <td><img src=' . $val["image"] . ' style="height:40px"></td>
+                                                <td><img src="./images/location/' . $val["image"] . '" style="height:40px;"></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-warning w-100" data-toggle="modal" data-target="#exampleModal">
+                                                    <a href="./dashboard_location_mod.php?location_id=' . $val["id"] . '" type="button" class="btn btn-warning w-100">
                                                         <i class="fas fa-cogs"></i>
-                                                    </button>
+                                                    </a>
                                                 </td>
                                             </tr>';
                                         }
@@ -209,29 +212,11 @@ if (isset($_SESSION['admin_state'])) {
                                     // echo '語句1執行失敗';
                                 }
                                 ?>
+                                <!--  -->
+                                <!--  -->
+                                <!--  -->
                             </tbody>
                         </table>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--  -->
                     </div>
                     <nav>
                         <ul class="pagination d-flex justify-content-center">

@@ -35,7 +35,7 @@ if (isset($_SESSION['admin_state'])) {
                     <span class="admin-user text-white ml-2 text-capitalize"><?php echo $_SESSION['admin_user'] ?></span>
                 </p>
                 <a href="./doAction_dashboard.php?state=logout" class="d-flex align-items-center text-decoration-none bg-danger text-white py-2 px-3 rounded">
-                    Log Out
+                    登出
                 </a>
             </div>
         </header>
@@ -149,7 +149,7 @@ if (isset($_SESSION['admin_state'])) {
             <main class="position-absolute px-0 px-md-4 py-2">
                 <nav style="--bs-breadcrumb-divider: '>';font-size:12px;font-weight:bold;" aria-label="breadcrumb">
                     <ol class="breadcrumb" style="background-color: transparent;">
-                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                        <li class="breadcrumb-item active" aria-current="page">首頁</li>
                     </ol>
                 </nav>
             </main>
