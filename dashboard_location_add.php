@@ -150,9 +150,94 @@ if (isset($_SESSION['admin_state'])) {
             <main class="position-absolute px-0 px-md-4 py-2">
                 <nav style="--bs-breadcrumb-divider: '>';font-size:12px;font-weight:bold;" aria-label="breadcrumb">
                     <ol class="breadcrumb" style="background-color: transparent;">
-                        <li class="breadcrumb-item active" aria-current="page">首頁</li>
+                        <li class="breadcrumb-item"><a href="./dashboard_home.php">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="./dashboard_location.php">據點消息</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">新增據點</li>
                     </ol>
                 </nav>
+                <div class="location-add-wrap px-3 mb-3">
+                    <form action="doAction_dashboard.php" method="POST" enctype="multipart/form-data">
+                        <div class="d-flex">
+                            <div style="width:60%">
+                                <div class="form-group">
+                                    <label for="location-add-name" class="font-weight-bold">名稱：</label>
+                                    <input type="text" class="form-control" id="location-add-name" name="location-add-name" value="" maxlength="15" placeholder="名稱限制15字">
+                                </div>
+                                <div class="form-group">
+                                    <label for="location-add-position" class="font-weight-bold">區域：</label>
+                                    <input type="text" class="form-control" id="location-add-position" name="location-add-position" value="" maxlength="5" placeholder="區域限制5字">
+                                </div>
+                            </div>
+                            <div style="width:40%" class="d-flex flex-column align-items-center ml-3">
+                                <img id="location-add-image" src="./images/others/location_add_default_image.jpeg" class="mb-3" style="height:97px" />
+                                <input type="hidden" name="location-add-image-origin" value="" />
+                                <label class="btn btn-warning mb-3">
+                                    <input id="location-add-image-upload" name="location-add-image-upload" style="display:none;" type="file" accept=".jpg,.jpeg,.png">
+                                    <i class="fa fa-images"></i> 上傳圖片
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="location-add-address" class="font-weight-bold">地址：</label>
+                            <input type="text" class="form-control" name="location-add-address" id="location-add-address" value="" maxlength="50" placeholder="地址限制50字">
+                        </div>
+                        <div class="form-group">
+                            <label for="location-add-lng" class="font-weight-bold">經度：</label>
+                            <input type="text" class="form-control" name="location-add-lng" id="location-add-lng" value="" maxlength="25">
+                        </div>
+                        <div class="form-group">
+                            <label for="location-add-lat" class="font-weight-bold">緯度：</label>
+                            <input type="text" class="form-control" name="location-add-lat" id="location-add-lat" value="" maxlength="25">
+                        </div>
+                        <div class="form-group">
+                            <label for="location-add-phone" class="font-weight-bold">電話：</label>
+                            <input type="text" class="form-control" name="location-add-phone" id="location-add-phone" value="" maxlength="15" placeholder="電話限制15字">
+                        </div>
+                        <div class="form-group">
+                            <label for="location-add-description" class="font-weight-bold">描述：</label>
+                            <textarea class="form-control" style="resize:none;" name="location-add-description" id="location-add-description" rows="10" maxlength="150" placeholder="描述限制150字"></textarea>
+                        </div>
+                        <input type="hidden" name="location-add-id" value="">
+                        <input type="hidden" name="state" value="location_add">
+                        <!--  -->
+                        <!--  -->
+                        <!--  -->
+                        <div class="form-group">
+                            <button id="location-add-confirm-btn" type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fas fa-plus mr-1"></i>
+                                新增
+                            </button>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">確定要新增嗎？</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img class="img-fluid mb-3 d-block mx-auto" id="location-add-image-confirm" src="" alt="">
+                                        <p class="font-weight-bold">名稱：<span id="location-add-name-confirm" style="font-weight:400"></span></p>
+                                        <p class="font-weight-bold">區域：<span id="location-add-position-confirm" style="font-weight:400"></span></p>
+                                        <p class="font-weight-bold">地址：<span id="location-add-address-confirm" style="font-weight:400"></span></p>
+                                        <p class="font-weight-bold">經度：<span id="location-add-lng-confirm" style="font-weight:400"></span></p>
+                                        <p class="font-weight-bold">緯度：<span id="location-add-lat-confirm" style="font-weight:400"></span></p>
+                                        <p class="font-weight-bold">電話：<span id="location-add-phone-confirm" style="font-weight:400"></span></p>
+                                        <p class="font-weight-bold">描述：</p>
+                                        <p id="location-add-description-confirm"></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                        <input type="submit" class="btn btn-primary" value="確定"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </main>
         </div>
     </div>

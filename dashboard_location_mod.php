@@ -36,6 +36,7 @@ if (isset($_SESSION['admin_state'])) {
                 </p>
                 <a href="./doAction_dashboard.php?state=logout" class="d-flex align-items-center text-decoration-none bg-danger text-white py-2 px-3 rounded">
                     登出
+                    <i class="fas fa-sign-out-alt ml-1"></i>
                 </a>
             </div>
         </header>
@@ -151,7 +152,7 @@ if (isset($_SESSION['admin_state'])) {
                     <ol class="breadcrumb" style="background-color: transparent;">
                         <li class="breadcrumb-item"><a href="./dashboard_home.php">首頁</a></li>
                         <li class="breadcrumb-item"><a href="./dashboard_location.php">據點消息</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><?php echo $_GET["location_id"] ?></li>
+                        <li class="breadcrumb-item active" aria-current="page">修改據點 <?php echo $_GET["location_id"] ?></li>
                     </ol>
                 </nav>
                 <div class="location-mod-wrap px-3 mb-3">
@@ -186,6 +187,7 @@ if (isset($_SESSION['admin_state'])) {
                                             </div>
                                             <div style="width:40%" class="d-flex flex-column align-items-center ml-3">
                                             <img id="location-mod-image" src="./images/location/' . $val["image"] . '" class="mb-3" style="height:97px"/>
+                                            <input type="hidden" name="location-mod-image-origin" value="' . $val["image"] . '"/>
                                             <label class="btn btn-warning mb-3">
                                             <input id="location-mod-image-upload" name="location-mod-image-upload" style="display:none;" type="file" accept=".jpg,.jpeg,.png">
                                             <i class="fa fa-images"></i> 上傳圖片
@@ -228,6 +230,7 @@ if (isset($_SESSION['admin_state'])) {
                         <!--  -->
                         <div class="form-group">
                             <button id="location-mod-confirm-btn" type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fas fa-wrench mr-1"></i>
                                 修改
                             </button>
                         </div>

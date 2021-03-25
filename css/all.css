@@ -205,10 +205,16 @@ main table td {
 .location-mod-wrap form input,
 .location-mod-wrap form button,
 .location-mod-wrap form textarea,
-.location-mod-wrap .modal-body {
+.location-mod-wrap .modal-body,
+.location-add-wrap form label,
+.location-add-wrap form input,
+.location-add-wrap form button,
+.location-add-wrap form textarea,
+.location-add-wrap .modal-body {
   font-size: 14px;
 }
-.location-mod-wrap {
+.location-mod-wrap,
+.location-add-wrap {
   height: calc(100vh - 134px);
   overflow-y: scroll;
 }

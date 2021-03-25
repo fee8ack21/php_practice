@@ -36,6 +36,7 @@ if (isset($_SESSION['admin_state'])) {
                 </p>
                 <a href="./doAction_dashboard.php?state=logout" class="d-flex align-items-center text-decoration-none bg-danger text-white py-2 px-3 rounded">
                     登出
+                    <i class="fas fa-sign-out-alt ml-1"></i>
                 </a>
             </div>
         </header>
@@ -155,9 +156,16 @@ if (isset($_SESSION['admin_state'])) {
                 </nav>
                 <div class="product-page-wrap px-3">
                     <div class="mb-3">
+                        <div class="mb-3">
+                            <a href="./dashboard_location_add.php" class="btn btn-info" style="font-size: 14px;">
+                                <i class="fas fa-plus mr-1"></i>新增據點</a>
+                            <a href="#" class="btn btn-danger disabled" style="font-size: 14px;">
+                                <i class="fas fa-trash-alt mr-1"></i>刪除據點</a>
+                        </div>
                         <table class="table w-100">
                             <thead>
                                 <tr>
+                                    <th scope="col">#</th>
                                     <th scope="col">編號</th>
                                     <th scope="col">名稱</th>
                                     <th scope="col">區域</th>
@@ -167,7 +175,7 @@ if (isset($_SESSION['admin_state'])) {
                                     <th scope="col">電話</th>
                                     <th scope="col">描述</th>
                                     <th scope="col">圖片</th>
-                                    <th scope="col">操作</th>
+                                    <th scope="col">修改</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -189,6 +197,7 @@ if (isset($_SESSION['admin_state'])) {
                                         foreach ($rows as $val) {
                                             echo
                                                 '<tr>
+                                                <td><input type="checkbox" name="" id="location_delete_' . $val["id"] . '" class="position-relative" style="top:3.5px;width:18px;height:18px;"/></td>
                                                 <td>' . $val["id"] . '</td>
                                                 <td>' . $val["name"] . '</td>
                                                 <td>' . $val["position"] . '</td>

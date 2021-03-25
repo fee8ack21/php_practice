@@ -1,7 +1,5 @@
 $(document).ready(function () {
-  // $('input').attr('autocomplete','off');
-
-  // dashboard
+  // 後台手風琴效果
   $('.accordion-burger').on('click', function () {
     $('aside').toggleClass('active');
     $('main').toggleClass('active');
@@ -11,7 +9,7 @@ $(document).ready(function () {
     $(this).toggleClass('active');
     $(this).siblings('.accordion-item-list').toggleClass('active');
   });
-  // dashboard_admin
+  // 後台登入功能
   $('#loginAccount').keydown(function () {
     $(this).removeClass('is-invalid');
     $(this).removeClass('is-valid');
@@ -28,12 +26,12 @@ $(document).ready(function () {
     let loginPwdVal = $('#loginPassword').val();
     //
     $.ajax({
-      url: 'doAction_dashboard.php?state=login', // url位置
-      type: 'post', // post/get
-      data: { loginAccount: loginAccVal, loginPassword: loginPwdVal }, // 輸入的資料
+      url: 'doAction_dashboard.php?state=login',
+      type: 'post',
+      data: { loginAccount: loginAccVal, loginPassword: loginPwdVal },
       error: function (xhr) {
         console.log(xhr);
-      }, // 錯誤後執行的函數
+      },
       success: function (response) {
         if (response === '無此帳號') {
           $('#loginAccount').addClass('is-invalid');
@@ -48,10 +46,10 @@ $(document).ready(function () {
         } else if (response === '登入成功') {
           window.location = './dashboard_home.php';
         }
-      }, // 成功後要執行的函數
+      },
     });
   });
-  //
+  // 據點消息修改功能
   $('#location-mod-confirm-btn').on('click', function () {
     let imageVal = $('#location-mod-image').attr('src');
     let nameVal = $('#location-mod-name').val();
@@ -84,6 +82,38 @@ $(document).ready(function () {
     reader.readAsDataURL(selectedFile);
     reader.onload = function (e) {
       $('#location-mod-image').attr('src', e.target.result);
+    };
+  });
+  // 據點消息上傳功能
+  $('#location-add-confirm-btn').on('click', function () {
+    console.log('123');
+    let imageVal = $('#location-add-image').attr('src');
+    let nameVal = $('#location-add-name').val();
+    let positionVal = $('#location-add-position').val();
+    let addressVal = $('#location-add-address').val();
+    let lngVal = $('#location-add-lng').val();
+    let latVal = $('#location-add-lat').val();
+    let phoneVal = $('#location-add-phone').val();
+    let descriptionVal = $('#location-add-description').val();
+    //
+    $('#location-add-image-confirm').attr('src', imageVal);
+    $('#location-add-name-confirm').text(nameVal);
+    $('#location-add-position-confirm').text(positionVal);
+    $('#location-add-address-confirm').text(addressVal);
+    $('#location-add-lng-confirm').text(lngVal);
+    $('#location-add-lat-confirm').text(latVal);
+    $('#location-add-phone-confirm').text(phoneVal);
+    $('#location-add-description-confirm').text(descriptionVal);
+  });
+  //
+  $('#location-add-image-upload').change(function () {
+    let selectedFile = $(this)[0].files[0];
+    console.log($(this)[0].files[0]);
+    console.log($(this)[0].files[0].name);
+    var reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onload = function (e) {
+      $('#location-add-image').attr('src', e.target.result);
     };
   });
 });
