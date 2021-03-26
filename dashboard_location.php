@@ -7,7 +7,60 @@ if (isset($_SESSION['admin_state'])) {
 } else {
     header('Location:./dashboard_admin.php');
 }
+// 
+require_once('db_connect.php');
+$searchKeyword = isset($_GET["location_search"]) ? $_GET["location_search"] : "";
+if (isset($_GET["location_search"])) {
+    $query1 = "select * from dashboard_location WHERE valid = 1 AND id LIKE '%" . $searchKeyword . "%' OR name LIKE '%" . $searchKeyword . "%' OR position LIKE '%" . $searchKeyword . "%' OR address LIKE '%" . $searchKeyword . "%' ";
+} else {
+    $query1 = "select * from dashboard_location WHERE valid = 1";
+}
+// 執行query，判斷返回值，$res 會是一物件內容
+$res1 = mysqli_query($link, $query1);
+$currentPage = isset($_GET["location_page"]) ? $_GET["location_page"] : 1;
+$pageLength = 1;
+// 
+if ($res1) {
+    // echo '語句1執行成功';
+    // 判斷是否有內容
+    if (mysqli_num_rows($res1) > 0) {
+        // $rows 為詳細每筆資料，mysqli_fetch_all()若不加第二個參數MYSQLI_ASSOC，回傳資料會是索引陣列
+        $rows = mysqli_fetch_all($res1, MYSQLI_ASSOC);
+        // 
+        $dataLength = count($rows);
+        $itemPerPage = 3;
+        $pageLength = ceil($dataLength / $itemPerPage);
+        // 
+        // for ($i = $itemPerPage * ($currentPage - 1); $i < $itemPerPage * $currentPage; $i++) {
+        //     if (isset($rows[$i])) {
+        //         echo
+        //             '<tr>
+        //             <td><input type="checkbox" name="" data-name="' . $rows[$i]["name"] . '" data-id="' . $rows[$i]["id"] . '" class="position-relative" style="top:3.5px;width:18px;height:18px;"/></td>
+        //             <td>' . $rows[$i]["id"] . '</td>
+        //             <td>' . $rows[$i]["name"] . '</td>
+        //             <td>' . $rows[$i]["position"] . '</td>
+        //             <td>' . $rows[$i]["address"] . '</td>
+        //             <td>' . $rows[$i]["lng"] . '</td>
+        //             <td>' . $rows[$i]["lat"] . '</td>
+        //             <td>' . $rows[$i]["phone"] . '</td>
+        //             <td>' . $rows[$i]["description"] . '</td>
+        //             <td><img src="./images/location/' . $rows[$i]["image"] . '" style="height:40px;"></td>
+        //             <td>
+        //                 <a href="./dashboard_location_mod.php?location_id=' . $rows[$i]["id"] . '" type="button" class="btn btn-warning w-100">
+        //                     <i class="fas fa-cogs"></i>
+        //                 </a>
+        //             </td>
+        //         </tr>';
+        //     }
+        // }
+    } else {
+        // echo '查無內容：' . $searchKeyword;
+    }
+} else {
+    echo '語句1執行失敗';
+}
 ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -23,20 +76,18 @@ if (isset($_SESSION['admin_state'])) {
 
 <body>
     <div class="dashboard-wrap">
-        <header class="d-flex justify-content-between justify-content-md-end bg-dark py-3 px-3 px-md-5" style="height: 60px;">
+        <header class="d-flex justify-content-between justify-content-md-end bg-dark py-3 px-3" style="height: 60px;">
             <div class="header-icon-wrap d-flex align-items-center d-md-none">
                 <a href="#" class="accordion-burger d-flex align-items-center text-decoration-none">
                     <i class="fas fa-bars text-white"></i>
                 </a>
             </div>
-            <div class="header-icon-wrap d-flex align-items-center">
+            <div class="header-icon-wrap d-flex align-items-center px-0 px-md-4">
                 <p class="d-flex align-items-center mb-0 mx-3">
-                    <i class="far fa-user-circle text-white"></i>
-                    <span class="admin-user text-white ml-2 text-capitalize"><?php echo $_SESSION['admin_user'] ?></span>
+                    <i class="far fa-user-circle text-white" style="font-size: 16px;"></i>
+                    <span class="admin-user text-white ml-1 text-capitalize"><?php echo $_SESSION['admin_user'] ?></span>
                 </p>
-                <a href="./doAction_dashboard.php?state=logout" class="d-flex align-items-center text-decoration-none bg-danger text-white py-2 px-3 rounded">
-                    登出
-                    <i class="fas fa-sign-out-alt ml-1"></i>
+                <a href="./doAction_dashboard.php?state=logout" class="btn btn-danger" style="font-size: 14px;"><i class="fas fa-power-off mr-1"></i>登出
                 </a>
             </div>
         </header>
@@ -155,13 +206,55 @@ if (isset($_SESSION['admin_state'])) {
                     </ol>
                 </nav>
                 <div class="product-page-wrap px-3">
-                    <div class="mb-3">
-                        <div class="mb-3">
-                            <a href="./dashboard_location_add.php" class="btn btn-info" style="font-size: 14px;">
+                    <div class="d-flex mb-3">
+                        <p class="mb-0 mr-2" style="font-size: 14px;">總共筆數：<?php echo '<span class="text-danger">' . $dataLength . '</span>'; ?></p>
+                        <p class="mb-0 mr-2" style="font-size: 14px;">目前頁數：<?php echo '<span class="text-danger">' . (isset($_GET["location_page"]) ? $_GET["location_page"] : 1) . '</span>'; ?></p>
+                        <p class="mb-0" style="font-size: 14px;">目前查詢：<?php echo '<span class="text-danger">' . (isset($_GET["location_search"]) ? $_GET["location_search"] : '') . '</span>'; ?></p>
+                    </div>
+                    <div class="d-lg-flex justify-content-between mb-3">
+                        <!--  -->
+                        <div class="d-flex mb-3 mb-lg-0">
+                            <a href="./dashboard_location_add.php" class="btn btn-primary" style="font-size: 14px;">
                                 <i class="fas fa-plus mr-1"></i>新增據點</a>
-                            <a href="#" class="btn btn-danger disabled" style="font-size: 14px;">
-                                <i class="fas fa-trash-alt mr-1"></i>刪除據點</a>
+                            <!--  -->
+                            <form action="./doAction_dashboard.php" method="POST">
+                                <button type="button" id="location-delete-btn" class="location-delete-btn btn btn-danger mx-2 delete-disabled" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fas fa-trash-alt mr-1"></i>刪除據點
+                                </button>
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">確定要刪除嗎？</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div id="location-add-modal-body" class="modal-body">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <!-- <input id="location-delete-data" type="hidden" name="location-delete-data" value="" /> -->
+                                                <input type="hidden" name="state" value="location_delete" />
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                                <input type="submit" class="btn btn-primary" value="確定" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <a href="?" class="btn btn-info" style="font-size: 14px;">
+                                <i class="fas fa-redo mr-1"></i>清除條件</a>
                         </div>
+                        <!--  -->
+                        <div class="">
+                            <form action="" class="d-flex justify-content-lg-end form-inline">
+                                <input name="location_search" style="font-size:14px;width:calc(100% - 89.61px);" class="form-control mr-2" type="search" placeholder="請輸入關鍵字" aria-label="Search">
+                                <button id="search-btn" style="font-size:14px;height:35px;letter-spacing:0.2rem;" class="btn btn-outline-success" type="submit"><i class="fas fa-search mr-1"></i>搜尋</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="table-wrap mb-3">
                         <table class="table w-100">
                             <thead>
                                 <tr>
@@ -183,42 +276,35 @@ if (isset($_SESSION['admin_state'])) {
                                 <!--  -->
                                 <!--  -->
                                 <?php
-                                require_once('db_connect.php');
-                                $query1 = "select * from dashboard_location WHERE valid = 1 ";
-                                // 執行query，判斷返回值，$res 會是一物件內容
-                                $res1 = mysqli_query($link, $query1);
                                 if ($res1) {
-                                    // echo '語句1執行成功';
-                                    // 判斷是否有內容
                                     if (mysqli_num_rows($res1) > 0) {
-                                        // $rows 為詳細每筆資料，mysqli_fetch_all()若不加第二個參數MYSQLI_ASSOC，回傳資料會是索引陣列
-                                        $rows = mysqli_fetch_all($res1, MYSQLI_ASSOC);
-                                        // print_r($rows);
-                                        foreach ($rows as $val) {
-                                            echo
-                                                '<tr>
-                                                <td><input type="checkbox" name="" id="location_delete_' . $val["id"] . '" class="position-relative" style="top:3.5px;width:18px;height:18px;"/></td>
-                                                <td>' . $val["id"] . '</td>
-                                                <td>' . $val["name"] . '</td>
-                                                <td>' . $val["position"] . '</td>
-                                                <td>' . $val["address"] . '</td>
-                                                <td>' . $val["lng"] . '</td>
-                                                <td>' . $val["lat"] . '</td>
-                                                <td>' . $val["phone"] . '</td>
-                                                <td>' . $val["description"] . '</td>
-                                                <td><img src="./images/location/' . $val["image"] . '" style="height:40px;"></td>
-                                                <td>
-                                                    <a href="./dashboard_location_mod.php?location_id=' . $val["id"] . '" type="button" class="btn btn-warning w-100">
-                                                        <i class="fas fa-cogs"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>';
+                                        for ($i = $itemPerPage * ($currentPage - 1); $i < $itemPerPage * $currentPage; $i++) {
+                                            if (isset($rows[$i])) {
+                                                echo
+                                                    '<tr>
+                                                    <td><input type="checkbox" name="" data-name="' . $rows[$i]["name"] . '" data-id="' . $rows[$i]["id"] . '" class="position-relative" style="top:3.5px;width:18px;height:18px;"/></td>
+                                                    <td>' . $rows[$i]["id"] . '</td>
+                                                    <td>' . $rows[$i]["name"] . '</td>
+                                                    <td>' . $rows[$i]["position"] . '</td>
+                                                    <td>' . $rows[$i]["address"] . '</td>
+                                                    <td>' . $rows[$i]["lng"] . '</td>
+                                                    <td>' . $rows[$i]["lat"] . '</td>
+                                                    <td>' . $rows[$i]["phone"] . '</td>
+                                                    <td>' . $rows[$i]["description"] . '</td>
+                                                    <td><img src="./images/location/' . $rows[$i]["image"] . '" style="height:40px;"></td>
+                                                    <td>
+                                                        <a href="./dashboard_location_mod.php?location_id=' . $rows[$i]["id"] . '" type="button" class="btn btn-warning w-100">
+                                                            <i class="fas fa-cogs"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>';
+                                            }
                                         }
                                     } else {
-                                        // echo '查無內容';
+                                        // echo '查無內容：' . $searchKeyword;
                                     }
                                 } else {
-                                    // echo '語句1執行失敗';
+                                    echo '語句1執行失敗';
                                 }
                                 ?>
                                 <!--  -->
@@ -229,16 +315,42 @@ if (isset($_SESSION['admin_state'])) {
                     </div>
                     <nav>
                         <ul class="pagination d-flex justify-content-center">
+                            <!--  -->
+                            <!--  -->
+                            <!--  -->
+                            <?php
+                            if (isset($_GET["location_search"])) {
+                                $PrevPageStr = '?location_search=' . $_GET["location_search"] . '&location_page=' . ($currentPage - 1) . '';;
+                                $NextPageStr = '?location_search=' . $_GET["location_search"] . '&location_page=' . ($currentPage + 1) . '';
+                                $PageStr = '?location_search=' . $_GET["location_search"] . '&location_page=';;
+                            } else {
+                                $PrevPageStr = '?location_page=' . ($currentPage - 1) . '';
+                                $NextPageStr = '?location_page=' . ($currentPage + 1) . '';
+                                $PageStr = '?location_page=';
+                            }
+                            ?>
+                            <!--  -->
+                            <!--  -->
+                            <!--  -->
                             <li class="page-item">
-                                <a class="page-link text-dark" href="#" aria-label="Previous">
+                                <a style="border-radius: 0.25rem 0 0 0.25rem;" class="btn page-link text-dark <?php echo ($currentPage == 1) ? 'disabled' : '' ?>" href="<?php echo $PrevPageStr ?>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link text-white bg-secondary" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+                            <!--  -->
+                            <!--  -->
+                            <!--  -->
+                            <?php
+                            for ($i = 1; $i <= $pageLength; $i++) {
+                                $currentDisabled = ($currentPage == $i) ? "disabled text-white bg-dark" : "text-dark";
+                                echo '<li class="page-item"><a class="btn page-link rounded-0 ' . $currentDisabled . '" href="' . $PageStr . $i . '">' . $i . '</a></li>';
+                            }
+                            ?>
+                            <!--  -->
+                            <!--  -->
+                            <!--  -->
                             <li class="page-item">
-                                <a class="page-link text-dark" href="#" aria-label="Next">
+                                <a style="border-radius: 0 0.25rem 0.25rem 0;" class="btn page-link text-dark <?php echo ($currentPage == $pageLength) ? 'disabled' : '' ?>" href="<?php echo $NextPageStr ?>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>

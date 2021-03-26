@@ -31,12 +31,10 @@ if (isset($_SESSION['admin_state'])) {
             </div>
             <div class="header-icon-wrap d-flex align-items-center">
                 <p class="d-flex align-items-center mb-0 mx-3">
-                    <i class="far fa-user-circle text-white"></i>
-                    <span class="admin-user text-white ml-2 text-capitalize"><?php echo $_SESSION['admin_user'] ?></span>
+                    <i class="far fa-user-circle text-white" style="font-size: 16px;"></i>
+                    <span class="admin-user text-white ml-1 text-capitalize"><?php echo $_SESSION['admin_user'] ?></span>
                 </p>
-                <a href="./doAction_dashboard.php?state=logout" class="d-flex align-items-center text-decoration-none bg-danger text-white py-2 px-3 rounded">
-                    登出
-                    <i class="fas fa-sign-out-alt ml-1"></i>
+                <a href="./doAction_dashboard.php?state=logout" class="btn btn-danger" style="font-size: 14px;"><i class="fas fa-power-off mr-1"></i>登出
                 </a>
             </div>
         </header>
@@ -178,16 +176,16 @@ if (isset($_SESSION['admin_state'])) {
                                             <div style="width:60%">
                                                 <div class="form-group">
                                                     <label for="location-mod-name" class="font-weight-bold">名稱：</label>
-                                                    <input type="text" class="form-control" id="location-mod-name" name="location-mod-name" value="' . $val["name"] . '" maxlength="15" placeholder="名稱限制15字">
+                                                    <input type="text" class="form-control" id="location-mod-name" name="location-mod-name" value="' . $val["name"] . '" maxlength="15" placeholder="名稱限制15字" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="location-mod-position" class="font-weight-bold">區域：</label>
-                                                    <input type="text" class="form-control" id="location-mod-position" name="location-mod-position" value="' . $val["position"] . '" maxlength="5" placeholder="區域限制5字">
+                                                    <input type="text" class="form-control" id="location-mod-position" name="location-mod-position" value="' . $val["position"] . '" maxlength="5" placeholder="區域限制5字" required>
                                                 </div>
                                             </div>
                                             <div style="width:40%" class="d-flex flex-column align-items-center ml-3">
-                                            <img id="location-mod-image" src="./images/location/' . $val["image"] . '" class="mb-3" style="height:97px"/>
-                                            <input type="hidden" name="location-mod-image-origin" value="' . $val["image"] . '"/>
+                                            <img id="location-mod-image" src="./images/location/' . $val["image"] . '" class="mb-3" style="height:97px;max-width:140px;object-fit:cover;"/>
+                                            <input type="hidden" name="location-mod-image-origin" value="' . $val["image"] . '" required/>
                                             <label class="btn btn-warning mb-3">
                                             <input id="location-mod-image-upload" name="location-mod-image-upload" style="display:none;" type="file" accept=".jpg,.jpeg,.png">
                                             <i class="fa fa-images"></i> 上傳圖片
@@ -196,19 +194,19 @@ if (isset($_SESSION['admin_state'])) {
                                         </div>
                                         <div class="form-group">
                                             <label for="location-mod-address" class="font-weight-bold">地址：</label>
-                                            <input type="text" class="form-control" name="location-mod-address" id="location-mod-address" value="' . $val["address"] . '" maxlength="50"  placeholder="地址限制50字">
+                                            <input type="text" class="form-control" name="location-mod-address" id="location-mod-address" value="' . $val["address"] . '" maxlength="50"  placeholder="地址限制50字" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="location-mod-lng" class="font-weight-bold">經度：</label>
-                                            <input type="text" class="form-control" name="location-mod-lng" id="location-mod-lng" value="' . $val["lng"] . '" maxlength="25">
+                                            <input type="text" class="form-control" name="location-mod-lng" id="location-mod-lng" value="' . $val["lng"] . '" maxlength="25" pattern="^(-?[1-9][0-9]{0,4}\.[0-9]{1,20}|0)$" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="location-mod-lat" class="font-weight-bold">緯度：</label>
-                                            <input type="text" class="form-control" name="location-mod-lat" id="location-mod-lat" value="' . $val["lat"] . '" maxlength="25">
+                                            <input type="text" class="form-control" name="location-mod-lat" id="location-mod-lat" value="' . $val["lat"] . '" maxlength="25" pattern="^(-?[1-9][0-9]{0,4}\.[0-9]{1,20}|0)$" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="location-mod-phone" class="font-weight-bold">電話：</label>
-                                            <input type="text" class="form-control" name="location-mod-phone" id="location-mod-phone" value="' . $val["phone"] . '" maxlength="15"  placeholder="電話限制15字">
+                                            <input type="text" class="form-control" name="location-mod-phone" id="location-mod-phone" value="' . $val["phone"] . '" maxlength="15"  placeholder="電話限制15字" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="location-mod-description" class="font-weight-bold">描述：</label>

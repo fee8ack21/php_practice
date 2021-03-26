@@ -31,12 +31,10 @@ if (isset($_SESSION['admin_state'])) {
             </div>
             <div class="header-icon-wrap d-flex align-items-center">
                 <p class="d-flex align-items-center mb-0 mx-3">
-                    <i class="far fa-user-circle text-white"></i>
-                    <span class="admin-user text-white ml-2 text-capitalize"><?php echo $_SESSION['admin_user'] ?></span>
+                    <i class="far fa-user-circle text-white" style="font-size: 16px;"></i>
+                    <span class="admin-user text-white ml-1 text-capitalize"><?php echo $_SESSION['admin_user'] ?></span>
                 </p>
-                <a href="./doAction_dashboard.php?state=logout" class="d-flex align-items-center text-decoration-none bg-danger text-white py-2 px-3 rounded">
-                    登出
-                    <i class="fas fa-sign-out-alt ml-1"></i>
+                <a href="./doAction_dashboard.php?state=logout" class="btn btn-danger" style="font-size: 14px;"><i class="fas fa-power-off mr-1"></i>登出
                 </a>
             </div>
         </header>

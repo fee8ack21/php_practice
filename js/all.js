@@ -116,4 +116,28 @@ $(document).ready(function () {
       $('#location-add-image').attr('src', e.target.result);
     };
   });
+  // 據點消息刪除功能
+  $('.table-wrap input[type=checkbox]').change(function () {
+    let checkboxArr = $('.table-wrap input[type=checkbox]');
+    for (let i = 0; i < checkboxArr.length; i++) {
+      if (checkboxArr[i].checked) {
+        $('#location-delete-btn').removeClass('delete-disabled');
+        break;
+      } else {
+        $('#location-delete-btn').addClass('delete-disabled');
+      }
+    }
+  })
+  $('#location-delete-btn').on('click', function () {
+    let checkedArr = $('.table-wrap input[type=checkbox]:checked');
+    let modalStr = ''
+    let dataArr = [];
+    for (let i = 0; i < checkedArr.length; i++) {
+      modalStr += '<p>ID：' + checkedArr[i].dataset.id + ' 名稱：' + checkedArr[i].dataset.name + '</p><input type="hidden" name="location-delete-id[]" value="' + checkedArr[i].dataset.id + '">';
+      dataArr[i] = checkedArr[i].dataset.id;
+    }
+    $('#location-add-modal-body').text('');
+    $('#location-add-modal-body').append(modalStr);
+    // $('#location-delete-data').val(dataArr);
+  })
 });

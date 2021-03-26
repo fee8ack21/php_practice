@@ -31,12 +31,10 @@ if (isset($_SESSION['admin_state'])) {
             </div>
             <div class="header-icon-wrap d-flex align-items-center">
                 <p class="d-flex align-items-center mb-0 mx-3">
-                    <i class="far fa-user-circle text-white"></i>
-                    <span class="admin-user text-white ml-2 text-capitalize"><?php echo $_SESSION['admin_user'] ?></span>
+                    <i class="far fa-user-circle text-white" style="font-size: 16px;"></i>
+                    <span class="admin-user text-white ml-1 text-capitalize"><?php echo $_SESSION['admin_user'] ?></span>
                 </p>
-                <a href="./doAction_dashboard.php?state=logout" class="d-flex align-items-center text-decoration-none bg-danger text-white py-2 px-3 rounded">
-                    登出
-                    <i class="fas fa-sign-out-alt ml-1"></i>
+                <a href="./doAction_dashboard.php?state=logout" class="btn btn-danger" style="font-size: 14px;"><i class="fas fa-power-off mr-1"></i>登出
                 </a>
             </div>
         </header>
@@ -161,37 +159,37 @@ if (isset($_SESSION['admin_state'])) {
                             <div style="width:60%">
                                 <div class="form-group">
                                     <label for="location-add-name" class="font-weight-bold">名稱：</label>
-                                    <input type="text" class="form-control" id="location-add-name" name="location-add-name" value="" maxlength="15" placeholder="名稱限制15字">
+                                    <input type="text" class="form-control" id="location-add-name" name="location-add-name" value="" maxlength="15" placeholder="名稱限制15字" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="location-add-position" class="font-weight-bold">區域：</label>
-                                    <input type="text" class="form-control" id="location-add-position" name="location-add-position" value="" maxlength="5" placeholder="區域限制5字">
+                                    <input type="text" class="form-control" id="location-add-position" name="location-add-position" value="" maxlength="5" placeholder="區域限制5字" required>
                                 </div>
                             </div>
                             <div style="width:40%" class="d-flex flex-column align-items-center ml-3">
-                                <img id="location-add-image" src="./images/others/location_add_default_image.jpeg" class="mb-3" style="height:97px" />
-                                <input type="hidden" name="location-add-image-origin" value="" />
+                                <img id="location-add-image" src="./images/location/location_add_default_image.jpeg" class="mb-3" style="height:97px;max-width:140px;object-fit:cover;" />
+                                <input type="hidden" name="location-add-image-origin" value="location_add_default_image.jpeg" required />
                                 <label class="btn btn-warning mb-3">
-                                    <input id="location-add-image-upload" name="location-add-image-upload" style="display:none;" type="file" accept=".jpg,.jpeg,.png">
+                                    <input id="location-add-image-upload" name="location-add-image-upload" style="display:none;" type="file" accept=".jpg,.jpeg,.png" />
                                     <i class="fa fa-images"></i> 上傳圖片
                                 </label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="location-add-address" class="font-weight-bold">地址：</label>
-                            <input type="text" class="form-control" name="location-add-address" id="location-add-address" value="" maxlength="50" placeholder="地址限制50字">
+                            <input type="text" class="form-control" name="location-add-address" id="location-add-address" value="" maxlength="50" placeholder="地址限制50字" required>
                         </div>
                         <div class="form-group">
                             <label for="location-add-lng" class="font-weight-bold">經度：</label>
-                            <input type="text" class="form-control" name="location-add-lng" id="location-add-lng" value="" maxlength="25">
+                            <input type="text" class="form-control" name="location-add-lng" id="location-add-lng" value="" placeholder="小數點後最多可填寫二十位" maxlength="25" pattern="^(-?[1-9][0-9]{0,4}\.[0-9]{1,20}|0)$" required>
                         </div>
                         <div class="form-group">
                             <label for="location-add-lat" class="font-weight-bold">緯度：</label>
-                            <input type="text" class="form-control" name="location-add-lat" id="location-add-lat" value="" maxlength="25">
+                            <input type="text" class="form-control" name="location-add-lat" id="location-add-lat" value="" placeholder="小數點後最多可填寫二十位" maxlength="25" pattern="^(-?[1-9][0-9]{0,4}\.[0-9]{1,20}|0)$" required>
                         </div>
                         <div class="form-group">
                             <label for="location-add-phone" class="font-weight-bold">電話：</label>
-                            <input type="text" class="form-control" name="location-add-phone" id="location-add-phone" value="" maxlength="15" placeholder="電話限制15字">
+                            <input type="text" class="form-control" name="location-add-phone" id="location-add-phone" value="" maxlength="15" placeholder="電話限制15字" required>
                         </div>
                         <div class="form-group">
                             <label for="location-add-description" class="font-weight-bold">描述：</label>
