@@ -1,15 +1,5 @@
 $(document).ready(function () {
-  // 後台手風琴效果
-  $('.accordion-burger').on('click', function () {
-    $('aside').toggleClass('active');
-    $('main').toggleClass('active');
-  });
-  //
-  $('.accordion-item').on('click', function () {
-    $(this).toggleClass('active');
-    $(this).siblings('.accordion-item-list').toggleClass('active');
-  });
-  // 後台登入功能
+  // 登入頁功能
   $('#loginAccount').keydown(function () {
     $(this).removeClass('is-invalid');
     $(this).removeClass('is-valid');
@@ -49,6 +39,16 @@ $(document).ready(function () {
       },
     });
   });
+  // Layout 手風琴效果
+  $('.accordion-burger').on('click', function () {
+    $('aside').toggleClass('active');
+    $('main').toggleClass('active');
+  });
+  //
+  $('.accordion-item').on('click', function () {
+    $(this).toggleClass('active');
+    $(this).siblings('.accordion-item-list').toggleClass('active');
+  });
   // 據點消息修改功能
   $('#location-mod-confirm-btn').on('click', function () {
     let imageVal = $('#location-mod-image').attr('src');
@@ -69,11 +69,6 @@ $(document).ready(function () {
     $('#location-mod-phone-confirm').text(phoneVal);
     $('#location-mod-description-confirm').text(descriptionVal);
   });
-  // location mod form validation
-  // $('#location-mod-name').keydown(function () {
-  //   console.log(123)
-  //   alert('123');
-  // });
   $('#location-mod-image-upload').change(function () {
     let selectedFile = $(this)[0].files[0];
     console.log($(this)[0].files[0]);
@@ -127,17 +122,23 @@ $(document).ready(function () {
         $('#location-delete-btn').addClass('delete-disabled');
       }
     }
-  })
+  });
   $('#location-delete-btn').on('click', function () {
     let checkedArr = $('.table-wrap input[type=checkbox]:checked');
-    let modalStr = ''
+    let modalStr = '';
     let dataArr = [];
     for (let i = 0; i < checkedArr.length; i++) {
-      modalStr += '<p>ID：' + checkedArr[i].dataset.id + ' 名稱：' + checkedArr[i].dataset.name + '</p><input type="hidden" name="location-delete-id[]" value="' + checkedArr[i].dataset.id + '">';
+      modalStr +=
+        '<p>ID：' +
+        checkedArr[i].dataset.id +
+        ' 名稱：' +
+        checkedArr[i].dataset.name +
+        '</p><input type="hidden" name="location-delete-id[]" value="' +
+        checkedArr[i].dataset.id +
+        '">';
       dataArr[i] = checkedArr[i].dataset.id;
     }
     $('#location-add-modal-body').text('');
     $('#location-add-modal-body').append(modalStr);
-    // $('#location-delete-data').val(dataArr);
-  })
+  });
 });

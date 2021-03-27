@@ -1,0 +1,229 @@
+// Scroll Bar 樣式
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: rgb(219, 219, 219);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  background-color: rgb(255, 255, 255) !important;
+  //   -webkit-text-fill-color: #d8cb86;
+  //   -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0) inset;
+  //   transition: background-color 5000s ease-in-out 0s;
+}
+
+// 全域樣式
+body,
+button,
+input,
+textarea {
+  letter-spacing: 0.2rem;
+  overflow-x: hidden;
+}
+
+label,
+input,
+button,
+textarea,
+a,
+td,
+th,
+.modal-body {
+  font-size: 14px !important;
+}
+
+// 登入頁
+.admin-wrap {
+  form {
+    width: 500px;
+    margin: 0px auto 0px auto;
+    border: 1px solid #ced4da;
+  }
+  //
+  .form-btn-group {
+    a,
+    input {
+      width: 80px;
+    }
+  }
+}
+
+// Layout
+.dashboard-wrap {
+  // 頁首
+  .header-icon-wrap {
+    font-size: 12px;
+    i {
+      font-size: 14px;
+      transition: 0.15s;
+    }
+    //
+    .fa-sort-down::before {
+      position: relative;
+      top: -2px;
+    }
+    //
+    a > i:active {
+      transform: scale(0.95);
+    }
+  }
+  // 選單
+  aside {
+    position: absolute;
+    left: -250px;
+    transition: 0.15s;
+    &.active {
+      position: absolute !important;
+      left: 0px !important;
+    }
+    //
+    .accordion {
+      .accordion-item {
+        padding: 12px 0 12px 0;
+        &.active {
+          background-color: #545b62 !important;
+          .fa-angle-down {
+            left: -3px;
+            transform: rotate(180deg);
+          }
+        }
+        .fa-angle-down {
+          position: relative;
+          transition: 0.3s;
+        }
+      }
+      //
+      li i {
+        width: 30px;
+      }
+      //
+      .accordion-item-list {
+        max-height: 0px;
+        overflow: hidden;
+        transition: 0.3s;
+        background-color: gray;
+        border-radius: 0 0 0.25rem 0.25rem;
+        &.active {
+          max-height: 500px;
+        }
+        a {
+          display: block;
+          color: rgba(255, 255, 255, 0.5);
+          padding: 12px 0 12px 0;
+          transition: 0.15s;
+          &:hover {
+            color: rgba(255, 255, 255, 1);
+          }
+        }
+      }
+    }
+  }
+  // 內容
+  main {
+    width: 100vw;
+    height: calc(100vh - 60px);
+    position: absolute;
+    left: 0px;
+    transition: 0.15s;
+    &.active {
+      position: absolute !important;
+      left: 250px !important;
+    }
+    //
+    .breadcrumb {
+      a {
+        font-size: 12px !important;
+      }
+    }
+  }
+}
+// Layout RWD
+@media screen and (min-width: 768px) {
+  .dashboard-wrap {
+    aside {
+      position: absolute;
+      left: 0px;
+    }
+    //
+    main {
+      width: calc(100vw - 250px);
+      position: absolute;
+      left: 250px;
+    }
+  }
+}
+
+// 據點消息頁
+.location-page-wrap {
+  .location-delete-btn {
+    &.delete-disabled {
+      color: #fff;
+      background-color: #dc3545;
+      border-color: #dc3545;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+  }
+  //
+  .table-wrap {
+    overflow-y: scroll;
+    height: calc(100vh - 336.492px);
+    table {
+      th {
+        min-width: 60px;
+        max-width: 200px;
+        text-align: center;
+      }
+      td {
+        line-height: 41.5px;
+        max-width: 200px;
+        overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-align: center;
+      }
+    }
+  }
+  //
+  .pagination {
+    a {
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
+// 據點消息頁 RWD
+@media screen and (min-width: 768px) {
+  .location-page-wrap {
+    .table-wrap {
+      overflow-y: scroll;
+    }
+  }
+}
+@media screen and (min-width: 992px) {
+  .location-page-wrap {
+    .table-wrap {
+      height: calc(100vh - 285.492px);
+    }
+  }
+}
+
+// 據點消息頁 - 修改 / 據點消息頁 - 新增
+.location-mod-wrap,
+.location-add-wrap {
+  height: calc(100vh - 134px);
+  overflow-y: scroll;
+}

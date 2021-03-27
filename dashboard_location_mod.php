@@ -7,6 +7,23 @@ if (isset($_SESSION['admin_state'])) {
 } else {
     header('Location:./dashboard_admin.php');
 }
+// 
+require_once('db_connect.php');
+$query1 = "select * from dashboard_location WHERE valid = 1 AND id = " . $_GET["location_id"] . "";
+$res1 = mysqli_query($link, $query1);
+$whetherHasData = false;
+if ($res1) {
+    // 判斷是否有內容
+    if (mysqli_num_rows($res1) > 0) {
+        // $rows 為詳細每筆資料，mysqli_fetch_all()若不加第二個參數MYSQLI_ASSOC，回傳資料會是索引陣列
+        $rows = mysqli_fetch_all($res1, MYSQLI_ASSOC);
+        $whetherHasData = true;
+    } else {
+        // echo '查無內容';
+    }
+} else {
+    // echo '語句1執行失敗';
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -155,24 +172,11 @@ if (isset($_SESSION['admin_state'])) {
                 </nav>
                 <div class="location-mod-wrap px-3 mb-3">
                     <form action="doAction_dashboard.php" method="POST" enctype="multipart/form-data">
-                        <!--  -->
-                        <!--  -->
-                        <!--  -->
                         <?php
-                        require_once('db_connect.php');
-                        $query1 = "select * from dashboard_location WHERE valid = 1 AND id = " . $_GET["location_id"] . "";
-                        // 執行query，判斷返回值，$res 會是一物件內容
-                        $res1 = mysqli_query($link, $query1);
-                        if ($res1) {
-                            // echo '語句1執行成功';
-                            // 判斷是否有內容
-                            if (mysqli_num_rows($res1) > 0) {
-                                // $rows 為詳細每筆資料，mysqli_fetch_all()若不加第二個參數MYSQLI_ASSOC，回傳資料會是索引陣列
-                                $rows = mysqli_fetch_all($res1, MYSQLI_ASSOC);
-                                // print_r($rows);
-                                foreach ($rows as $val) {
-                                    echo
-                                        '<div class="d-flex">
+                        if ($whetherHasData) {
+                            foreach ($rows as $val) {
+                                echo
+                                    '<div class="d-flex">
                                             <div style="width:60%">
                                                 <div class="form-group">
                                                     <label for="location-mod-name" class="font-weight-bold">名稱：</label>
@@ -214,25 +218,19 @@ if (isset($_SESSION['admin_state'])) {
                                         </div>
                                         <input type="hidden" name="location-mod-id" value="' . $val["id"] . '">
                                         <input type="hidden" name="state" value="location_mod">
+                                        <div class="form-group">
+                                        <button id="location-mod-confirm-btn" type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal">
+                                            <i class="fas fa-wrench mr-1"></i>
+                                            修改
+                                        </button>
+                                        </div>
                                         ';
-                                }
-                            } else {
-                                echo '查無內容';
                             }
                         } else {
-                            echo '語句1執行失敗';
+                            echo '<p style="font-size:14px">查無內容</p>';
                         }
                         ?>
-                        <!--  -->
-                        <!--  -->
-                        <!--  -->
-                        <div class="form-group">
-                            <button id="location-mod-confirm-btn" type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal">
-                                <i class="fas fa-wrench mr-1"></i>
-                                修改
-                            </button>
-                        </div>
-                        <!-- Modal -->
+
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">

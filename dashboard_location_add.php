@@ -16,7 +16,6 @@ if (isset($_SESSION['admin_state'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <title>後台</title>
-    <!--  -->
     <link rel="stylesheet" href="./css/all.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
@@ -197,16 +196,12 @@ if (isset($_SESSION['admin_state'])) {
                         </div>
                         <input type="hidden" name="location-add-id" value="">
                         <input type="hidden" name="state" value="location_add">
-                        <!--  -->
-                        <!--  -->
-                        <!--  -->
                         <div class="form-group">
                             <button id="location-add-confirm-btn" type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal">
                                 <i class="fas fa-plus mr-1"></i>
                                 新增
                             </button>
                         </div>
-                        <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">

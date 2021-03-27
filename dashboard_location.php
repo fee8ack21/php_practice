@@ -11,53 +11,31 @@ if (isset($_SESSION['admin_state'])) {
 require_once('db_connect.php');
 $searchKeyword = isset($_GET["location_search"]) ? $_GET["location_search"] : "";
 if (isset($_GET["location_search"])) {
-    $query1 = "select * from dashboard_location WHERE valid = 1 AND id LIKE '%" . $searchKeyword . "%' OR name LIKE '%" . $searchKeyword . "%' OR position LIKE '%" . $searchKeyword . "%' OR address LIKE '%" . $searchKeyword . "%' ";
+    $query1 = "select * from dashboard_location WHERE valid = 1 AND id LIKE '%" . $searchKeyword . "%' OR name LIKE '%" . $searchKeyword . "%' OR position LIKE '%" . $searchKeyword . "%' OR address LIKE '%" . $searchKeyword . "%' OR phone LIKE '%" . $searchKeyword . "%' OR description LIKE '%" . $searchKeyword . "%'";
 } else {
     $query1 = "select * from dashboard_location WHERE valid = 1";
 }
-// 執行query，判斷返回值，$res 會是一物件內容
+// 執行query，判斷返回值，$res1 會是一物件內容
 $res1 = mysqli_query($link, $query1);
-$currentPage = isset($_GET["location_page"]) ? $_GET["location_page"] : 1;
+$currentPage = (isset($_GET["location_page"]) && is_numeric($_GET["location_page"])) ? $_GET["location_page"] : 1;
 $pageLength = 1;
+$dataLength = 0;
+$itemPerPage = 3;
+$whetherHasData = false;
 // 
 if ($res1) {
-    // echo '語句1執行成功';
     // 判斷是否有內容
     if (mysqli_num_rows($res1) > 0) {
         // $rows 為詳細每筆資料，mysqli_fetch_all()若不加第二個參數MYSQLI_ASSOC，回傳資料會是索引陣列
         $rows = mysqli_fetch_all($res1, MYSQLI_ASSOC);
-        // 
         $dataLength = count($rows);
-        $itemPerPage = 3;
         $pageLength = ceil($dataLength / $itemPerPage);
-        // 
-        // for ($i = $itemPerPage * ($currentPage - 1); $i < $itemPerPage * $currentPage; $i++) {
-        //     if (isset($rows[$i])) {
-        //         echo
-        //             '<tr>
-        //             <td><input type="checkbox" name="" data-name="' . $rows[$i]["name"] . '" data-id="' . $rows[$i]["id"] . '" class="position-relative" style="top:3.5px;width:18px;height:18px;"/></td>
-        //             <td>' . $rows[$i]["id"] . '</td>
-        //             <td>' . $rows[$i]["name"] . '</td>
-        //             <td>' . $rows[$i]["position"] . '</td>
-        //             <td>' . $rows[$i]["address"] . '</td>
-        //             <td>' . $rows[$i]["lng"] . '</td>
-        //             <td>' . $rows[$i]["lat"] . '</td>
-        //             <td>' . $rows[$i]["phone"] . '</td>
-        //             <td>' . $rows[$i]["description"] . '</td>
-        //             <td><img src="./images/location/' . $rows[$i]["image"] . '" style="height:40px;"></td>
-        //             <td>
-        //                 <a href="./dashboard_location_mod.php?location_id=' . $rows[$i]["id"] . '" type="button" class="btn btn-warning w-100">
-        //                     <i class="fas fa-cogs"></i>
-        //                 </a>
-        //             </td>
-        //         </tr>';
-        //     }
-        // }
+        $whetherHasData = true;
     } else {
-        // echo '查無內容：' . $searchKeyword;
+        // echo '查無內容';
     }
 } else {
-    echo '語句1執行失敗';
+    // echo '語句1執行失敗';
 }
 ?>
 
@@ -69,7 +47,6 @@ if ($res1) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <title>後台</title>
-    <!--  -->
     <link rel="stylesheet" href="./css/all.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
@@ -129,73 +106,74 @@ if ($res1) {
                             <li>
                                 <a href="#" class="px-4 text-decoration-none">List2-1</a>
                             </li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">List2-2</a>
+                            </li>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">List2-3</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="#" class="px-4 text-decoration-none">List2-3</a>
+                        <a href="./dashboard_location.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
+                            <i class="fas fa-map-marked-alt"></i>據點消息
+                            <i class="fas fa-angle-down d-flex justify-content-center align-items-center" style="color: transparent;"></i>
+                        </a>
                     </li>
-                </ul>
-                </li>
-                <li>
-                    <a href="./dashboard_location.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-map-marked-alt"></i>據點消息
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center" style="color: transparent;"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-users"></i>
-                        會員
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
-                    </a>
-                    <ul class="accordion-item-list list-unstyled">
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-users"></i>
-                        會員
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
-                    </a>
-                    <ul class="accordion-item-list list-unstyled">
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-users"></i>
-                        會員
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
-                    </a>
-                    <ul class="accordion-item-list list-unstyled">
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-3</a>
-                        </li>
-                    </ul>
-                </li>
+                    <li>
+                        <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
+                            <i class="fas fa-users"></i>
+                            會員
+                            <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
+                        </a>
+                        <ul class="accordion-item-list list-unstyled">
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">List2-1</a>
+                            </li>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">List2-2</a>
+                            </li>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">List2-3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
+                            <i class="fas fa-users"></i>
+                            會員
+                            <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
+                        </a>
+                        <ul class="accordion-item-list list-unstyled">
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">List2-1</a>
+                            </li>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">List2-2</a>
+                            </li>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">List2-3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
+                            <i class="fas fa-users"></i>
+                            會員
+                            <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
+                        </a>
+                        <ul class="accordion-item-list list-unstyled">
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">List2-1</a>
+                            </li>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">List2-2</a>
+                            </li>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">List2-3</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </aside>
             <main class="position-absolute px-0 px-md-4 py-2">
@@ -205,23 +183,20 @@ if ($res1) {
                         <li class="breadcrumb-item active" aria-current="page">據點消息</li>
                     </ol>
                 </nav>
-                <div class="product-page-wrap px-3">
+                <div class="location-page-wrap px-3">
                     <div class="d-flex mb-3">
                         <p class="mb-0 mr-2" style="font-size: 14px;">總共筆數：<?php echo '<span class="text-danger">' . $dataLength . '</span>'; ?></p>
-                        <p class="mb-0 mr-2" style="font-size: 14px;">目前頁數：<?php echo '<span class="text-danger">' . (isset($_GET["location_page"]) ? $_GET["location_page"] : 1) . '</span>'; ?></p>
+                        <p class="mb-0 mr-2" style="font-size: 14px;">總共頁數：<?php echo '<span class="text-danger">' . $pageLength . '</span>'; ?></p>
                         <p class="mb-0" style="font-size: 14px;">目前查詢：<?php echo '<span class="text-danger">' . (isset($_GET["location_search"]) ? $_GET["location_search"] : '') . '</span>'; ?></p>
                     </div>
                     <div class="d-lg-flex justify-content-between mb-3">
-                        <!--  -->
                         <div class="d-flex mb-3 mb-lg-0">
                             <a href="./dashboard_location_add.php" class="btn btn-primary" style="font-size: 14px;">
                                 <i class="fas fa-plus mr-1"></i>新增據點</a>
-                            <!--  -->
                             <form action="./doAction_dashboard.php" method="POST">
                                 <button type="button" id="location-delete-btn" class="location-delete-btn btn btn-danger mx-2 delete-disabled" data-toggle="modal" data-target="#exampleModal">
                                     <i class="fas fa-trash-alt mr-1"></i>刪除據點
                                 </button>
-                                <!-- Delete Modal -->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
@@ -234,7 +209,6 @@ if ($res1) {
                                             <div id="location-add-modal-body" class="modal-body">
                                             </div>
                                             <div class="modal-footer">
-                                                <!-- <input id="location-delete-data" type="hidden" name="location-delete-data" value="" /> -->
                                                 <input type="hidden" name="state" value="location_delete" />
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                                 <input type="submit" class="btn btn-primary" value="確定" />
@@ -246,7 +220,6 @@ if ($res1) {
                             <a href="?" class="btn btn-info" style="font-size: 14px;">
                                 <i class="fas fa-redo mr-1"></i>清除條件</a>
                         </div>
-                        <!--  -->
                         <div class="">
                             <form action="" class="d-flex justify-content-lg-end form-inline">
                                 <input name="location_search" style="font-size:14px;width:calc(100% - 89.61px);" class="form-control mr-2" type="search" placeholder="請輸入關鍵字" aria-label="Search">
@@ -260,7 +233,7 @@ if ($res1) {
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">編號</th>
-                                    <th scope="col">名稱</th>
+                                    <th scope="col" style="width: 200px;">名稱</th>
                                     <th scope="col">區域</th>
                                     <th scope="col">地址</th>
                                     <th scope="col">經度</th>
@@ -272,19 +245,15 @@ if ($res1) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <!--  -->
-                                <!--  -->
-                                <!--  -->
                                 <?php
-                                if ($res1) {
-                                    if (mysqli_num_rows($res1) > 0) {
-                                        for ($i = $itemPerPage * ($currentPage - 1); $i < $itemPerPage * $currentPage; $i++) {
-                                            if (isset($rows[$i])) {
-                                                echo
-                                                    '<tr>
+                                if ($whetherHasData) {
+                                    for ($i = $itemPerPage * ($currentPage - 1); $i < $itemPerPage * $currentPage; $i++) {
+                                        if (isset($rows[$i])) {
+                                            echo
+                                                '<tr>
                                                     <td><input type="checkbox" name="" data-name="' . $rows[$i]["name"] . '" data-id="' . $rows[$i]["id"] . '" class="position-relative" style="top:3.5px;width:18px;height:18px;"/></td>
                                                     <td>' . $rows[$i]["id"] . '</td>
-                                                    <td>' . $rows[$i]["name"] . '</td>
+                                                    <td style="min-width:200px">' . $rows[$i]["name"] . '</td>
                                                     <td>' . $rows[$i]["position"] . '</td>
                                                     <td>' . $rows[$i]["address"] . '</td>
                                                     <td>' . $rows[$i]["lng"] . '</td>
@@ -298,26 +267,16 @@ if ($res1) {
                                                         </a>
                                                     </td>
                                                 </tr>';
-                                            }
                                         }
-                                    } else {
-                                        // echo '查無內容：' . $searchKeyword;
                                     }
-                                } else {
-                                    echo '語句1執行失敗';
                                 }
                                 ?>
-                                <!--  -->
-                                <!--  -->
-                                <!--  -->
                             </tbody>
                         </table>
+                        <?php echo $whetherHasData ? '' : '<p style="font-size:14px">查無內容</p>'  ?>
                     </div>
                     <nav>
                         <ul class="pagination d-flex justify-content-center">
-                            <!--  -->
-                            <!--  -->
-                            <!--  -->
                             <?php
                             if (isset($_GET["location_search"])) {
                                 $PrevPageStr = '?location_search=' . $_GET["location_search"] . '&location_page=' . ($currentPage - 1) . '';;
@@ -329,26 +288,17 @@ if ($res1) {
                                 $PageStr = '?location_page=';
                             }
                             ?>
-                            <!--  -->
-                            <!--  -->
-                            <!--  -->
                             <li class="page-item">
                                 <a style="border-radius: 0.25rem 0 0 0.25rem;" class="btn page-link text-dark <?php echo ($currentPage == 1) ? 'disabled' : '' ?>" href="<?php echo $PrevPageStr ?>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <!--  -->
-                            <!--  -->
-                            <!--  -->
                             <?php
                             for ($i = 1; $i <= $pageLength; $i++) {
                                 $currentDisabled = ($currentPage == $i) ? "disabled text-white bg-dark" : "text-dark";
                                 echo '<li class="page-item"><a class="btn page-link rounded-0 ' . $currentDisabled . '" href="' . $PageStr . $i . '">' . $i . '</a></li>';
                             }
                             ?>
-                            <!--  -->
-                            <!--  -->
-                            <!--  -->
                             <li class="page-item">
                                 <a style="border-radius: 0 0.25rem 0.25rem 0;" class="btn page-link text-dark <?php echo ($currentPage == $pageLength) ? 'disabled' : '' ?>" href="<?php echo $NextPageStr ?>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

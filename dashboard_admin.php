@@ -20,7 +20,7 @@ if (isset($_SESSION['admin_state'])) {
 </head>
 
 <body>
-    <div class="login-wrap container d-flex align-items-center" style="height: 100vh;">
+    <div class="admin-wrap container d-flex align-items-center" style="height: 100vh;">
         <form action="" class="rounded py-5 px-3" autocomplete="off">
             <h1 class="text-center h5">
                 後台登入
