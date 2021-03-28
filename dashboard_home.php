@@ -7,25 +7,6 @@ if (isset($_SESSION['admin_state'])) {
 } else {
     header('Location:./dashboard_admin.php');
 }
-// 
-require_once('db_connect.php');
-$query1 = "select * from dashboard_location WHERE valid = 1";
-// 執行query，判斷返回值，$res1 會是一物件內容
-$res1 = mysqli_query($link, $query1);
-$whetherHasData = false;
-// 
-if ($res1) {
-    // 判斷是否有內容
-    if (mysqli_num_rows($res1) > 0) {
-        // $rows 為詳細每筆資料，mysqli_fetch_all()若不加第二個參數MYSQLI_ASSOC，回傳資料會是索引陣列
-        $rows = mysqli_fetch_all($res1, MYSQLI_ASSOC);
-        $whetherHasData = true;
-    } else {
-        // echo '查無內容';
-    }
-} else {
-    // echo '語句1執行失敗';
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -173,11 +154,6 @@ if ($res1) {
                 <div class="home-page-wrap px-3">
                     <h2 style="font-size: 14px;">據點消息</h2>
                     <div id="map" style="height:500px"></div>
-                    <?php
-                    foreach ($rows as $val) {
-                        echo $val["lat"] . '</br>';
-                    }
-                    ?>
                 </div>
             </main>
         </div>

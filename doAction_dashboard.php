@@ -59,6 +59,24 @@ if ($state_get === 'logout') {
     unset($_SESSION['admin_user']);
     header('Location:./dashboard_admin.php');
 }
+// 首頁
+if ($state_get === 'home') {
+    echo '123';
+    $query1 = "select * from dashboard_location WHERE valid = 1";
+    $res1 = mysqli_query($link, $query1);
+    if ($res1) {
+        // echo '語句1執行成功';
+        if (mysqli_num_rows($res1) > 0) {
+            $rows = mysqli_fetch_all($res1, MYSQLI_ASSOC);
+            echo json_encode($rows);
+            echo '123';
+        } else {
+            echo '無據點內容';
+        }
+    } else {
+        // echo '語句1執行失敗';
+    }
+}
 // 據點消息修改功能
 if ($state_post === 'location_mod') {
     // 

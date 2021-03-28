@@ -1,54 +1,72 @@
 $(document).ready(function () {
   // 登入頁功能
-  $('#loginAccount').keydown(function () {
-    $(this).removeClass('is-invalid');
-    $(this).removeClass('is-valid');
-    $('#loginAccountHint').text('');
-  });
-  $('#loginPassword').keydown(function () {
-    $(this).removeClass('is-invalid');
-    $(this).removeClass('is-valid');
-    $('#loginPasswordHint').text('');
-  });
-  //
-  $('#loginSend').on('click', function () {
-    let loginAccVal = $('#loginAccount').val();
-    let loginPwdVal = $('#loginPassword').val();
-    //
-    $.ajax({
-      url: 'doAction_dashboard.php?state=login',
-      type: 'post',
-      data: { loginAccount: loginAccVal, loginPassword: loginPwdVal },
-      error: function (xhr) {
-        console.log(xhr);
-      },
-      success: function (response) {
-        if (response === '無此帳號') {
-          $('#loginAccount').addClass('is-invalid');
-          $('#loginAccountHint').text('無此帳號');
-        } else if (response === '密碼錯誤') {
-          $('#loginAccount').removeClass('is-invalid');
-          $('#loginAccount').addClass('is-valid');
-          $('#loginAccountHint').text('');
-          //
-          $('#loginPassword').addClass('is-invalid');
-          $('#loginPasswordHint').text('密碼錯誤');
-        } else if (response === '登入成功') {
-          window.location = './dashboard_home.php';
-        }
-      },
+  if (window.location.pathname === '/php_practice/dashboard_admin.php') {
+    $('#loginAccount').keydown(function () {
+      $(this).removeClass('is-invalid');
+      $(this).removeClass('is-valid');
+      $('#loginAccountHint').text('');
     });
-  });
+    $('#loginPassword').keydown(function () {
+      $(this).removeClass('is-invalid');
+      $(this).removeClass('is-valid');
+      $('#loginPasswordHint').text('');
+    });
+    //
+    $('#loginSend').on('click', function () {
+      let loginAccVal = $('#loginAccount').val();
+      let loginPwdVal = $('#loginPassword').val();
+      //
+      $.ajax({
+        url: 'doAction_dashboard.php?state=login',
+        type: 'post',
+        data: { loginAccount: loginAccVal, loginPassword: loginPwdVal },
+        error: function (xhr) {
+          console.log(xhr);
+        },
+        success: function (response) {
+          if (response === '無此帳號') {
+            $('#loginAccount').addClass('is-invalid');
+            $('#loginAccountHint').text('無此帳號');
+          } else if (response === '密碼錯誤') {
+            $('#loginAccount').removeClass('is-invalid');
+            $('#loginAccount').addClass('is-valid');
+            $('#loginAccountHint').text('');
+            //
+            $('#loginPassword').addClass('is-invalid');
+            $('#loginPasswordHint').text('密碼錯誤');
+          } else if (response === '登入成功') {
+            window.location = './dashboard_home.php';
+          }
+        },
+      });
+    });
+  }
+
   // Layout 手風琴效果
   $('.accordion-burger').on('click', function () {
     $('aside').toggleClass('active');
     $('main').toggleClass('active');
   });
-  //
   $('.accordion-item').on('click', function () {
     $(this).toggleClass('active');
     $(this).siblings('.accordion-item-list').toggleClass('active');
   });
+  // 首頁
+  if (window.location.pathname === '/php_practice/dashboard_home.php') {
+    alert('123');
+    $.ajax({
+      url: 'doAction_dashboard.php?state=home',
+      type: 'get',
+      error: function (xhr) {
+        console.log(xhr);
+      },
+      success: function (response) {
+        console.log(response);
+      },
+    });
+    //
+  }
+
   // 據點消息修改功能
   $('#location-mod-confirm-btn').on('click', function () {
     let imageVal = $('#location-mod-image').attr('src');

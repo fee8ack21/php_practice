@@ -10,10 +10,12 @@ if (isset($_SESSION['admin_state'])) {
 // 
 require_once('db_connect.php');
 $searchKeyword = isset($_GET["location_search"]) ? $_GET["location_search"] : "";
+$location_order = isset($_GET["location_order"]) ? $_GET["location_order"] : 'id';
+// 
 if (isset($_GET["location_search"])) {
-    $query1 = "select * from dashboard_location WHERE valid = 1 AND id LIKE '%" . $searchKeyword . "%' OR name LIKE '%" . $searchKeyword . "%' OR position LIKE '%" . $searchKeyword . "%' OR address LIKE '%" . $searchKeyword . "%' OR phone LIKE '%" . $searchKeyword . "%' OR description LIKE '%" . $searchKeyword . "%'";
+    $query1 = "select * from dashboard_location WHERE valid = 1 AND id LIKE '%" . $searchKeyword . "%' OR name LIKE '%" . $searchKeyword . "%' OR position LIKE '%" . $searchKeyword . "%' OR address LIKE '%" . $searchKeyword . "%' OR phone LIKE '%" . $searchKeyword . "%' OR description LIKE '%" . $searchKeyword . "%' ORDER BY " . $location_order . "";
 } else {
-    $query1 = "select * from dashboard_location WHERE valid = 1";
+    $query1 = "select * from dashboard_location WHERE valid = 1 ORDER BY " . $location_order . "";
 }
 // 執行query，判斷返回值，$res1 會是一物件內容
 $res1 = mysqli_query($link, $query1);
@@ -230,16 +232,107 @@ if ($res1) {
                     <div class="table-wrap mb-3">
                         <table class="table w-100">
                             <thead>
+                                <?php
+                                if (isset($_GET["location_search"])) {
+                                    if (isset($_GET["location_page"])) {
+                                        $id_order_str = '?location_search=' . $_GET["location_search"] . '&location_page=' . $_GET["location_page"] . '&location_order=id';
+                                        $name_order_str = '?location_search=' . $_GET["location_search"] . '&location_page=' . $_GET["location_page"] . '&location_order=name';
+                                        $position_order_str = '?location_search=' . $_GET["location_search"] . '&location_page=' . $_GET["location_page"] . '&location_order=position';
+                                        $address_order_str = '?location_search=' . $_GET["location_search"] . '&location_page=' . $_GET["location_page"] . '&location_order=address';
+                                        $lng_order_str = '?location_search=' . $_GET["location_search"] . '&location_page=' . $_GET["location_page"] . '&location_order=lng';
+                                        $lat_order_str = '?location_search=' . $_GET["location_search"] . '&location_page=' . $_GET["location_page"] . '&location_order=lat';
+                                        $phone_order_str = '?location_search=' . $_GET["location_search"] . '&location_page=' . $_GET["location_page"] . '&location_order=phone';
+                                        $description_order_str = '?location_search=' . $_GET["location_search"] . '&location_page=' . $_GET["location_page"] . '&location_order=description';
+                                    } else {
+                                        $id_order_str = '?location_search=' . $_GET["location_search"] . '&location_order=id';
+                                        $name_order_str = '?location_search=' . $_GET["location_search"] . '&location_order=name';
+                                        $position_order_str = '?location_search=' . $_GET["location_search"] . '&location_order=position';
+                                        $address_order_str = '?location_search=' . $_GET["location_search"] . '&location_order=address';
+                                        $lng_order_str = '?location_search=' . $_GET["location_search"] . '&location_order=lng';
+                                        $lat_order_str = '?location_search=' . $_GET["location_search"] . '&location_order=lat';
+                                        $phone_order_str = '?location_search=' . $_GET["location_search"] . '&location_order=phone';
+                                        $description_order_str = '?location_search=' . $_GET["location_search"] . '&location_order=description';
+                                    }
+                                } else {
+                                    if (isset($_GET["location_page"])) {
+                                        $id_order_str = '?location_page=' . $_GET["location_page"] . '&location_order=id';
+                                        $name_order_str = '?location_page=' . $_GET["location_page"] . '&location_order=name';
+                                        $position_order_str = '?location_page=' . $_GET["location_page"] . '&location_order=position';
+                                        $address_order_str = '?location_page=' . $_GET["location_page"] . '&location_order=address';
+                                        $lng_order_str = '?location_page=' . $_GET["location_page"] . '&location_order=lng';
+                                        $lat_order_str = '?location_page=' . $_GET["location_page"] . '&location_order=lat';
+                                        $phone_order_str = '?location_page=' . $_GET["location_page"] . '&location_order=phone';
+                                        $description_order_str = '?location_page=' . $_GET["location_page"] . '&location_order=description';
+                                    } else {
+                                        $id_order_str = '?location_order=id';
+                                        $name_order_str = '?location_order=name';
+                                        $position_order_str = '?location_order=position';
+                                        $address_order_str = '?location_order=address';
+                                        $lng_order_str = '?location_order=lng';
+                                        $lat_order_str = '?location_order=lat';
+                                        $phone_order_str = '?location_order=phone';
+                                        $description_order_str = '?location_order=description';
+                                    }
+                                }
+                                ?>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">編號</th>
-                                    <th scope="col" style="width: 200px;">名稱</th>
-                                    <th scope="col">區域</th>
-                                    <th scope="col">地址</th>
-                                    <th scope="col">經度</th>
-                                    <th scope="col">緯度</th>
-                                    <th scope="col">電話</th>
-                                    <th scope="col">描述</th>
+                                    <th scope="col" style="min-width: 90px;">
+                                        <a href="<?php echo $id_order_str ?>" class="d-block text-decoration-none" style="color: black;">編號
+                                            <?php if ($location_order === 'id') {
+                                                echo '<i class="fas fa-caret-down"></i>';
+                                            } ?>
+                                        </a>
+                                    </th>
+                                    <th scope="col" style="min-width: 200px;">
+                                        <a href="<?php echo $name_order_str ?>" class="d-block text-decoration-none" style="color: black;">名稱
+                                            <?php if ($location_order === 'name') {
+                                                echo '<i class="fas fa-caret-down"></i>';
+                                            } ?>
+                                        </a>
+                                    </th>
+                                    <th scope="col" style="min-width: 90px;">
+                                        <a href="<?php echo $position_order_str ?>" class="d-block text-decoration-none" style="color: black;">區域
+                                            <?php if ($location_order === 'position') {
+                                                echo '<i class="fas fa-caret-down"></i>';
+                                            } ?>
+                                        </a>
+                                    </th>
+                                    <th scope="col">
+                                        <a href="<?php echo $address_order_str ?>" class="d-block text-decoration-none" style="color: black;">地址
+                                            <?php if ($location_order === 'address') {
+                                                echo '<i class="fas fa-caret-down"></i>';
+                                            } ?>
+                                        </a>
+                                    </th>
+                                    <th scope="col">
+                                        <a href="<?php echo $lng_order_str ?>" class="d-block text-decoration-none" style="color: black;">經度
+                                            <?php if ($location_order === 'lng') {
+                                                echo '<i class="fas fa-caret-down"></i>';
+                                            } ?>
+                                        </a>
+                                    </th>
+                                    <th scope="col">
+                                        <a href="<?php echo $lat_order_str ?>" class="d-block text-decoration-none" style="color: black;">緯度
+                                            <?php if ($location_order === 'lat') {
+                                                echo '<i class="fas fa-caret-down"></i>';
+                                            } ?>
+                                        </a>
+                                    </th>
+                                    <th scope="col" style="min-width: 170px;">
+                                        <a href="<?php echo $phone_order_str ?>" class="d-block text-decoration-none" style="color: black;">
+                                            電話<?php if ($location_order === 'phone') {
+                                                    echo '<i class="fas fa-caret-down"></i>';
+                                                } ?>
+                                        </a>
+                                    </th>
+                                    <th scope="col">
+                                        <a href="<?php echo $description_order_str ?>" class="d-block text-decoration-none" style="color: black;">
+                                            描述<?php if ($location_order === 'description') {
+                                                    echo '<i class="fas fa-caret-down"></i>';
+                                                } ?>
+                                        </a>
+                                    </th>
                                     <th scope="col">圖片</th>
                                     <th scope="col">修改</th>
                                 </tr>
@@ -279,13 +372,29 @@ if ($res1) {
                         <ul class="pagination d-flex justify-content-center">
                             <?php
                             if (isset($_GET["location_search"])) {
-                                $PrevPageStr = '?location_search=' . $_GET["location_search"] . '&location_page=' . ($currentPage - 1) . '';;
-                                $NextPageStr = '?location_search=' . $_GET["location_search"] . '&location_page=' . ($currentPage + 1) . '';
-                                $PageStr = '?location_search=' . $_GET["location_search"] . '&location_page=';;
+                                if (isset($_GET["location_order"])) {
+                                    $PrevPageStr = '?location_search=' . $_GET["location_search"] . '&location_page=' . ($currentPage - 1) . '&location_order=' . $_GET["location_order"] . '';
+                                    $NextPageStr = '?location_search=' . $_GET["location_search"] . '&location_page=' . ($currentPage + 1) . '&location_order=' . $_GET["location_order"] . '';
+                                    $PageStr = '?location_search=' . $_GET["location_search"] . '&location_page=';;
+                                    $PageStrAfter = '&location_order=' . $_GET["location_order"] . '';
+                                } else {
+                                    $PrevPageStr = '?location_search=' . $_GET["location_search"] . '&location_page=' . ($currentPage - 1) . '';;
+                                    $NextPageStr = '?location_search=' . $_GET["location_search"] . '&location_page=' . ($currentPage + 1) . '';
+                                    $PageStr = '?location_search=' . $_GET["location_search"] . '&location_page=';;
+                                    $PageStrAfter = '';
+                                }
                             } else {
-                                $PrevPageStr = '?location_page=' . ($currentPage - 1) . '';
-                                $NextPageStr = '?location_page=' . ($currentPage + 1) . '';
-                                $PageStr = '?location_page=';
+                                if (isset($_GET["location_order"])) {
+                                    $PrevPageStr = '?location_page=' . ($currentPage - 1) . '&location_order=' . $_GET["location_order"] . '';
+                                    $NextPageStr = '?location_page=' . ($currentPage + 1) . '&location_order=' . $_GET["location_order"] . '';
+                                    $PageStr = '?location_page=';
+                                    $PageStrAfter = '&location_order=' . $_GET["location_order"] . '';
+                                } else {
+                                    $PrevPageStr = '?location_page=' . ($currentPage - 1) . '';
+                                    $NextPageStr = '?location_page=' . ($currentPage + 1) . '';
+                                    $PageStr = '?location_page=';
+                                    $PageStrAfter = '';
+                                }
                             }
                             ?>
                             <li class="page-item">
@@ -296,7 +405,7 @@ if ($res1) {
                             <?php
                             for ($i = 1; $i <= $pageLength; $i++) {
                                 $currentDisabled = ($currentPage == $i) ? "disabled text-white bg-dark" : "text-dark";
-                                echo '<li class="page-item"><a class="btn page-link rounded-0 ' . $currentDisabled . '" href="' . $PageStr . $i . '">' . $i . '</a></li>';
+                                echo '<li class="page-item"><a class="btn page-link rounded-0 ' . $currentDisabled . '" href="' . $PageStr . $i . $PageStrAfter . '">' . $i . '</a></li>';
                             }
                             ?>
                             <li class="page-item">
