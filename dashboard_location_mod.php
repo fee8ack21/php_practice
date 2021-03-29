@@ -184,7 +184,15 @@ if ($res1) {
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="location-mod-position" class="font-weight-bold">區域：</label>
-                                                    <input type="text" class="form-control" id="location-mod-position" name="location-mod-position" value="' . $val["position"] . '" maxlength="5" placeholder="區域限制5字" required>
+                                                    <div class="input-group">
+                                                    <select class="custom-select" id="location-mod-position" name="location-mod-position" required>
+                                                        <option disabled>選擇</option>
+                                                        <option ' . ($val["position"] === '北部' ? 'selected' : '') . ' value="北部">北部</option>
+                                                        <option ' . ($val["position"] === '中部' ? 'selected' : '') . ' value="中部">中部</option>
+                                                        <option ' . ($val["position"] === '南部' ? 'selected' : '') . ' value="南部">南部</option>
+                                                        <option ' . ($val["position"] === '東部' ? 'selected' : '') . ' value="東部">東部</option>
+                                                    </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div style="width:40%" class="d-flex flex-column align-items-center ml-3">

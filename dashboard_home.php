@@ -152,65 +152,165 @@ if (isset($_SESSION['admin_state'])) {
                     </ol>
                 </nav>
                 <div class="home-page-wrap px-3">
-                    <h2 style="font-size: 14px;">據點消息</h2>
-                    <div id="map" style="height:500px"></div>
+                    <!-- <h2 style="font-size: 14px;">據點消息</h2> -->
+                    <div class="">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">地圖</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">圖表</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                <div id="location-map" class="location-map rounded" style="height:500px"></div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                <canvas id="location-chart" class="mb-5"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </main>
         </div>
     </div>
-    <!--  -->
+    <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXNIeO1IKw9_eE9JbvYyfqTJWYIyJ8zYw&callback=initMap">
+    <!-- google map -->
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXNIeO1IKw9_eE9JbvYyfqTJWYIyJ8zYw">
     </script>
     <script>
-        let map;
-
-        function initMap() {
-            map = new google.maps.Map(document.getElementById("map"), {
+        function initMap(data) {
+            let centerLat = 23.97565;
+            let centerLng = 120.973882;
+            let map;
+            map = new google.maps.Map(document.getElementById("location-map"), {
                 center: {
-                    lat: -34.397,
-                    lng: 150.644
+                    lat: centerLat,
+                    lng: centerLng
                 },
+                mapTypeControl: false,
+                streetViewControl: false,
                 fullscreenControl: false,
-                zoom: 8,
+                zoom: 7,
+                styles: [{
+                        "featureType": "administrative",
+                        "elementType": "all",
+                        "stylers": [{
+                                "visibility": "on"
+                            },
+                            {
+                                "lightness": 33
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "elementType": "all",
+                        "stylers": [{
+                            "color": "#f2e5d4"
+                        }]
+                    },
+                    {
+                        "featureType": "poi.park",
+                        "elementType": "geometry",
+                        "stylers": [{
+                            "color": "#c5dac6"
+                        }]
+                    },
+                    {
+                        "featureType": "poi.park",
+                        "elementType": "labels",
+                        "stylers": [{
+                                "visibility": "on"
+                            },
+                            {
+                                "lightness": 20
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "all",
+                        "stylers": [{
+                            "lightness": 20
+                        }]
+                    },
+                    {
+                        "featureType": "road.highway",
+                        "elementType": "geometry",
+                        "stylers": [{
+                            "color": "#c5c6c6"
+                        }]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "elementType": "geometry",
+                        "stylers": [{
+                            "color": "#e4d7c6"
+                        }]
+                    },
+                    {
+                        "featureType": "road.local",
+                        "elementType": "geometry",
+                        "stylers": [{
+                            "color": "#fbfaf7"
+                        }]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "all",
+                        "stylers": [{
+                                "visibility": "on"
+                            },
+                            {
+                                "color": "#acbcc9"
+                            }
+                        ]
+                    }
+                ]
             });
-            // 
-            const contentString =
-                '<div id="content">' +
-                '<div id="siteNotice">' +
-                "</div>" +
-                '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-                '<div id="bodyContent">' +
-                "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
-                "sandstone rock formation in the southern part of the " +
-                "rock caves and ancient paintings. Uluru is listed as a World " +
-                "Heritage Site.</p>" +
-                '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-                "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
-                "(last visited June 22, 2009).</p>" +
-                "</div>" +
-                "</div>";
+            for (let i = 0; i < data.length; i++) {
 
-            const infowindow = new google.maps.InfoWindow({
-                content: contentString,
-            });
-            // 
-            let marker = new google.maps.Marker({
-                position: {
-                    lat: -34.397,
-                    lng: 150.644
-                },
-                animation: google.maps.Animation.DROP,
-                map,
-                title: "Hello World!",
-            });
-            marker.setMap(map);
-            marker.addListener("click", () => {
-                infowindow.open(map, marker);
-            });
+                // 
+                const contentString =
+                    '<div id="content' + data[i].id + '">' +
+                    '<div id="siteNotice' + data[i].id + '">' +
+                    "</div>" +
+                    '<h1 id="firstHeading' + data[i].id + '" class="firstHeading text-center h6">' + data[i].name + '</h1>' +
+                    '<div id="bodyContent' + data[i].id + '">' +
+                    '<img src="./images/location/' + data[i].image + '" class="d-block rounded" style="width:303.48px !important;height:200px;object-fit:cover;margin-bottom:8px;"/>' +
+                    "<p class='mb-1'>" + data[i].description + "</p>" +
+                    "<p class='mb-1'>" + data[i].phone + "</p>" +
+                    "</div>" +
+                    "</div>";
+
+                const infowindow = new google.maps.InfoWindow({
+                    content: contentString,
+                });
+                // 
+                let marker = new google.maps.Marker({
+                    position: {
+                        lat: Number(data[i].lat),
+                        lng: Number(data[i].lng)
+                    },
+                    animation: google.maps.Animation.BOUNCE,
+                    map,
+                    title: data[i].name,
+                });
+                marker.setMap(map);
+                marker.addListener("click", () => {
+                    infowindow.open(map, marker);
+                });
+            }
         }
     </script>
+    <!-- chart js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="./js/all.js"></script>
 </body>
 

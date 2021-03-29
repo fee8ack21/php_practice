@@ -53,7 +53,6 @@ $(document).ready(function () {
   });
   // 首頁
   if (window.location.pathname === '/php_practice/dashboard_home.php') {
-    alert('123');
     $.ajax({
       url: 'doAction_dashboard.php?state=home',
       type: 'get',
@@ -61,12 +60,79 @@ $(document).ready(function () {
         console.log(xhr);
       },
       success: function (response) {
-        console.log(response);
+        let data = JSON.parse(response);
+        initMap(data);
+        //
+        let northLength = 0;
+        let centralLength = 0;
+        let southLength = 0;
+        let eastLength = 0;
+        for (let i = 0; i < data.length; i++) {
+          switch (data[i].position) {
+            case '北部':
+              northLength += 1;
+              break;
+            case '中部':
+              centralLength += 1;
+              break;
+            case '南部':
+              southLength += 1;
+              break;
+            case '東部':
+              eastLength += 1;
+              break;
+          }
+        }
+        let ctx = document.getElementById('location-chart').getContext('2d');
+        let chart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['北部', '中部', '南部', '東部'],
+            datasets: [
+              {
+                // label: 'My First dataset',
+                backgroundColor: [
+                  'rgba(255, 99, 132,0.8)',
+                  'rgba(54, 162, 235,0.8)',
+                  'rgba(255, 205, 86,0.8)',
+                  'rgba(75, 192, 192,0.8)',
+                ],
+                data: [northLength, centralLength, southLength, eastLength],
+              },
+            ],
+          },
+
+          // Configuration options go here
+          options: {},
+        });
       },
     });
     //
   }
-
+  // 據點消息首頁 RWD
+  if (window.location.pathname === '/php_practice/dashboard_location.php') {
+    function locationHomeRWD() {
+      if ($(window).width() < 500) {
+        $('#location-add-btn').text('');
+        $('#location-add-btn').append('<i class="fas fa-plus"></i>');
+        $('#location-delete-btn').text('');
+        $('#location-delete-btn').append('<i class="fas fa-trash-alt"></i>');
+        $('#location-clear-btn').text('');
+        $('#location-clear-btn').append('<i class="fas fa-redo"></i>');
+      } else {
+        $('#location-add-btn').text('');
+        $('#location-add-btn').append('<i class="fas fa-plus mr-1"></i>新增據點');
+        $('#location-delete-btn').text('');
+        $('#location-delete-btn').append('<i class="fas fa-trash-alt mr-1"></i>刪除據點');
+        $('#location-clear-btn').text('');
+        $('#location-clear-btn').append('<i class="fas fa-redo mr-1"></i>清除條件');
+      }
+    }
+    locationHomeRWD();
+    window.onresize = function () {
+      locationHomeRWD();
+    };
+  }
   // 據點消息修改功能
   $('#location-mod-confirm-btn').on('click', function () {
     let imageVal = $('#location-mod-image').attr('src');

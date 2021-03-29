@@ -28,7 +28,9 @@ input:-webkit-autofill:active {
 body,
 button,
 input,
-textarea {
+textarea,
+option,
+select {
   letter-spacing: 0.2rem;
   overflow-x: hidden;
 }
@@ -40,7 +42,9 @@ textarea,
 a,
 td,
 th,
-.modal-body {
+.modal-body,
+option,
+select {
   font-size: 14px !important;
 }
 
@@ -134,6 +138,7 @@ th,
   main {
     width: 100vw;
     height: calc(100vh - 60px);
+    overflow-y: scroll;
     position: absolute;
     left: 0px;
     transition: 0.15s;
@@ -179,7 +184,8 @@ th,
   //
   .table-wrap {
     overflow-y: scroll;
-    height: calc(100vh - 336.492px);
+    height: calc(100vh - 324px);
+    // height: calc(100vh - 336.492px);
     table {
       th {
         min-width: 90px;
@@ -216,7 +222,8 @@ th,
 @media screen and (min-width: 992px) {
   .location-page-wrap {
     .table-wrap {
-      height: calc(100vh - 285.492px);
+      height: calc(100vh - 273px);
+      // height: calc(100vh - 285.492px);
     }
   }
 }
@@ -226,4 +233,25 @@ th,
 .location-add-wrap {
   height: calc(100vh - 134px);
   overflow-y: scroll;
+}
+
+// Google Map Style
+.location-map {
+  .gm-style-iw {
+    padding: 18px 0 0 18px !important;
+  }
+
+  button.gm-ui-hover-effect {
+    top: 0px !important;
+    right: -2px !important;
+  }
+
+  div[role='button'] {
+    &:focus {
+      outline: none !important;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }

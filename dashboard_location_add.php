@@ -162,7 +162,15 @@ if (isset($_SESSION['admin_state'])) {
                                 </div>
                                 <div class="form-group">
                                     <label for="location-add-position" class="font-weight-bold">區域：</label>
-                                    <input type="text" class="form-control" id="location-add-position" name="location-add-position" value="" maxlength="5" placeholder="區域限制5字" required>
+                                    <div class="input-group">
+                                        <select class="custom-select" id="location-add-position" name="location-add-position" required>
+                                            <option selected disabled>選擇</option>
+                                            <option value="北部">北部</option>
+                                            <option value="中部">中部</option>
+                                            <option value="南部">南部</option>
+                                            <option value="東部">東部</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div style="width:40%" class="d-flex flex-column align-items-center ml-3">

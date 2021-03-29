@@ -193,7 +193,7 @@ if ($res1) {
                     </div>
                     <div class="d-lg-flex justify-content-between mb-3">
                         <div class="d-flex mb-3 mb-lg-0">
-                            <a href="./dashboard_location_add.php" class="btn btn-primary" style="font-size: 14px;">
+                            <a href="./dashboard_location_add.php" id="location-add-btn" class="btn btn-primary" style="font-size: 14px;">
                                 <i class="fas fa-plus mr-1"></i>新增據點</a>
                             <form action="./doAction_dashboard.php" method="POST">
                                 <button type="button" id="location-delete-btn" class="location-delete-btn btn btn-danger mx-2 delete-disabled" data-toggle="modal" data-target="#exampleModal">
@@ -219,7 +219,7 @@ if ($res1) {
                                     </div>
                                 </div>
                             </form>
-                            <a href="?" class="btn btn-info" style="font-size: 14px;">
+                            <a href="?" id="location-clear-btn" class="btn btn-info" style="font-size: 14px;">
                                 <i class="fas fa-redo mr-1"></i>清除條件</a>
                         </div>
                         <div class="">

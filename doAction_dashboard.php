@@ -61,15 +61,13 @@ if ($state_get === 'logout') {
 }
 // 首頁
 if ($state_get === 'home') {
-    echo '123';
     $query1 = "select * from dashboard_location WHERE valid = 1";
     $res1 = mysqli_query($link, $query1);
     if ($res1) {
         // echo '語句1執行成功';
         if (mysqli_num_rows($res1) > 0) {
             $rows = mysqli_fetch_all($res1, MYSQLI_ASSOC);
-            echo json_encode($rows);
-            echo '123';
+            echo json_encode($rows, JSON_UNESCAPED_UNICODE);
         } else {
             echo '無據點內容';
         }
