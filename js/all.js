@@ -1,6 +1,7 @@
 $(document).ready(function () {
   // 登入頁功能
   if (window.location.pathname === '/php_practice/dashboard_admin.php') {
+    alert('帳號：root 密碼：12345');
     $('#loginAccount').keydown(function () {
       $(this).removeClass('is-invalid');
       $(this).removeClass('is-valid');
@@ -63,6 +64,14 @@ $(document).ready(function () {
         let data = JSON.parse(response);
         initMap(data);
         //
+        let locationChartList = '';
+        for (let i = 0; i < data.length; i++) {
+          locationChartList +=
+            '<li style="font-size:14px" class="list-group-item bg-light">' + data[i].name + '</li>';
+        }
+        $('#location-list').append(locationChartList);
+        $('#location-list-title').append('總覽');
+        //
         let northLength = 0;
         let centralLength = 0;
         let southLength = 0;
@@ -84,6 +93,8 @@ $(document).ready(function () {
           }
         }
         let ctx = document.getElementById('location-chart').getContext('2d');
+        // let labelPosition = $(window).width() < 1200 ? 'left' : 'top';
+        let labelPosition = 'left';
         let chart = new Chart(ctx, {
           type: 'doughnut',
           data: {
@@ -101,10 +112,271 @@ $(document).ready(function () {
               },
             ],
           },
-
-          // Configuration options go here
-          options: {},
+          options: {
+            legend: {
+              position: labelPosition,
+              align: 'center',
+              onClick: function (e, legendItem) {
+                if (legendItem.text === '北部') {
+                  chart.data.labels.splice(0, 4);
+                  chart.data.datasets.forEach((dataset) => {
+                    dataset.data.splice(0, 4);
+                  });
+                  chart.data.labels.push('北部');
+                  chart.data.datasets.forEach((dataset) => {
+                    dataset.data.push(northLength);
+                  });
+                  chart.data.datasets[0].backgroundColor[0] = 'rgba(255, 99, 132,0.8)';
+                  //
+                  chart.update();
+                  let locationChartStrDetail = '';
+                  for (let i = 0; i < data.length; i++) {
+                    if (data[i].position === '北部') {
+                      locationChartStrDetail +=
+                        '<li style="font-size:14px" class="list-group-item bg-light">' +
+                        data[i].name +
+                        '</li>';
+                    }
+                  }
+                  $('#location-list').text('');
+                  $('#location-list').append(locationChartStrDetail);
+                  $('#location-list-title').text('');
+                  $('#location-list-title').append(
+                    '北部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
+                  );
+                } else if (legendItem.text === '中部') {
+                  chart.data.labels.splice(0, 4);
+                  chart.data.datasets.forEach((dataset) => {
+                    dataset.data.splice(0, 4);
+                  });
+                  chart.data.labels.push('中部');
+                  chart.data.datasets.forEach((dataset) => {
+                    dataset.data.push(centralLength);
+                  });
+                  chart.data.datasets[0].backgroundColor[0] = 'rgba(54, 162, 235,0.8)';
+                  //
+                  chart.update();
+                  let locationChartStrDetail = '';
+                  for (let i = 0; i < data.length; i++) {
+                    if (data[i].position === '中部') {
+                      locationChartStrDetail +=
+                        '<li style="font-size:14px" class="list-group-item bg-light">' +
+                        data[i].name +
+                        '</li>';
+                    }
+                  }
+                  $('#location-list').text('');
+                  $('#location-list').append(locationChartStrDetail);
+                  $('#location-list-title').text('');
+                  $('#location-list-title').append(
+                    '中部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
+                  );
+                } else if (legendItem.text === '南部') {
+                  chart.data.labels.splice(0, 4);
+                  chart.data.datasets.forEach((dataset) => {
+                    dataset.data.splice(0, 4);
+                  });
+                  chart.data.labels.push('南部');
+                  chart.data.datasets.forEach((dataset) => {
+                    dataset.data.push(southLength);
+                  });
+                  chart.data.datasets[0].backgroundColor[0] = 'rgba(255, 205, 86,0.8)';
+                  //
+                  chart.update();
+                  let locationChartStrDetail = '';
+                  for (let i = 0; i < data.length; i++) {
+                    if (data[i].position === '南部') {
+                      locationChartStrDetail +=
+                        '<li style="font-size:14px" class="list-group-item bg-light">' +
+                        data[i].name +
+                        '</li>';
+                    }
+                  }
+                  $('#location-list').text('');
+                  $('#location-list').append(locationChartStrDetail);
+                  $('#location-list-title').text('');
+                  $('#location-list-title').append(
+                    '南部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
+                  );
+                } else if (legendItem.text === '東部') {
+                  chart.data.labels.splice(0, 4);
+                  chart.data.datasets.forEach((dataset) => {
+                    dataset.data.splice(0, 4);
+                  });
+                  chart.data.labels.push('東部');
+                  chart.data.datasets.forEach((dataset) => {
+                    dataset.data.push(eastLength);
+                  });
+                  chart.data.datasets[0].backgroundColor[0] = 'rgba(75, 192, 192,0.8)';
+                  chart.update();
+                  let locationChartStrDetail = '';
+                  for (let i = 0; i < data.length; i++) {
+                    if (data[i].position === '東部') {
+                      locationChartStrDetail +=
+                        '<li style="font-size:14px" class="list-group-item bg-light">' +
+                        data[i].name +
+                        '</li>';
+                    }
+                  }
+                  $('#location-list').text('');
+                  $('#location-list').append(locationChartStrDetail);
+                  $('#location-list-title').text('');
+                  $('#location-list-title').append(
+                    '東部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
+                  );
+                }
+              },
+            },
+          },
         });
+        //
+        $('#location-list-title').on('click', function (e) {
+          if (e.target.id === 'back-chart-icon') {
+            chart.data.labels.splice(0, 4);
+            chart.data.datasets.forEach((dataset) => {
+              dataset.data.splice(0, 4);
+            });
+            //
+            chart.data.labels.push('北部', '中部', '南部', '東部');
+            chart.data.datasets.forEach((dataset) => {
+              dataset.data.push(northLength, centralLength, southLength, eastLength);
+            });
+            chart.data.datasets[0].backgroundColor = [
+              'rgba(255, 99, 132,0.8)',
+              'rgba(54, 162, 235,0.8)',
+              'rgba(255, 205, 86,0.8)',
+              'rgba(75, 192, 192,0.8)',
+            ];
+            chart.update();
+            let locationChartStrDetail = '';
+            for (let i = 0; i < data.length; i++) {
+              locationChartStrDetail +=
+                '<li style="font-size:14px" class="list-group-item bg-light">' +
+                data[i].name +
+                '</li>';
+            }
+            $('#location-list').text('');
+            $('#location-list').append(locationChartStrDetail);
+            $('#location-list-title').text('');
+            $('#location-list-title').append('總覽');
+          }
+        });
+
+        $('#location-chart').on('click', function (e) {
+          let firstPoint = chart.getElementAtEvent(e)[0];
+          let label;
+          let value;
+          if (firstPoint) {
+            label = chart.data.labels[firstPoint._index];
+            value = chart.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
+          }
+          if (label === '北部') {
+            chart.data.labels.splice(0, 4);
+            chart.data.datasets.forEach((dataset) => {
+              dataset.data.splice(0, 4);
+            });
+            chart.data.labels.push('北部');
+            chart.data.datasets.forEach((dataset) => {
+              dataset.data.push(northLength);
+            });
+            chart.data.datasets[0].backgroundColor[0] = 'rgba(255, 99, 132,0.8)';
+            chart.update();
+            let locationChartStrDetail = '';
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].position === '北部') {
+                locationChartStrDetail +=
+                  '<li style="font-size:14px" class="list-group-item bg-light">' +
+                  data[i].name +
+                  '</li>';
+              }
+            }
+            $('#location-list').text('');
+            $('#location-list').append(locationChartStrDetail);
+            $('#location-list-title').text('');
+            $('#location-list-title').append(
+              '北部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
+            );
+          } else if (label === '中部') {
+            chart.data.labels.splice(0, 4);
+            chart.data.datasets.forEach((dataset) => {
+              dataset.data.splice(0, 4);
+            });
+            chart.data.labels.push('中部');
+            chart.data.datasets.forEach((dataset) => {
+              dataset.data.push(centralLength);
+            });
+            chart.data.datasets[0].backgroundColor[0] = 'rgba(54, 162, 235,0.8)';
+            chart.update();
+            let locationChartStrDetail = '';
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].position === '中部') {
+                locationChartStrDetail +=
+                  '<li style="font-size:14px" class="list-group-item bg-light">' +
+                  data[i].name +
+                  '</li>';
+              }
+            }
+            $('#location-list').text('');
+            $('#location-list').append(locationChartStrDetail);
+            $('#location-list-title').text('');
+            $('#location-list-title').append(
+              '中部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
+            );
+          } else if (label === '南部') {
+            chart.data.labels.splice(0, 4);
+            chart.data.datasets.forEach((dataset) => {
+              dataset.data.splice(0, 4);
+            });
+            chart.data.labels.push('南部');
+            chart.data.datasets.forEach((dataset) => {
+              dataset.data.push(southLength);
+            });
+            chart.data.datasets[0].backgroundColor[0] = 'rgba(255, 205, 86,0.8)';
+            chart.update();
+            let locationChartStrDetail = '';
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].position === '南部') {
+                locationChartStrDetail +=
+                  '<li style="font-size:14px" class="list-group-item bg-light">' +
+                  data[i].name +
+                  '</li>';
+              }
+            }
+            $('#location-list').text('');
+            $('#location-list').append(locationChartStrDetail);
+            $('#location-list-title').text('');
+            $('#location-list-title').append(
+              '南部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
+            );
+          } else if (label === '東部') {
+            chart.data.labels.splice(0, 4);
+            chart.data.datasets.forEach((dataset) => {
+              dataset.data.splice(0, 4);
+            });
+            chart.data.labels.push('東部');
+            chart.data.datasets.forEach((dataset) => {
+              dataset.data.push(eastLength);
+            });
+            chart.data.datasets[0].backgroundColor[0] = 'rgba(75, 192, 192,0.8)';
+            chart.update();
+            let locationChartStrDetail = '';
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].position === '東部') {
+                locationChartStrDetail +=
+                  '<li style="font-size:14px" class="list-group-item bg-light">' +
+                  data[i].name +
+                  '</li>';
+              }
+            }
+            $('#location-list').text('');
+            $('#location-list').append(locationChartStrDetail);
+            $('#location-list-title').text('');
+            $('#location-list-title').append(
+              '東部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
+            );
+          }
+        });
+        //
       },
     });
     //

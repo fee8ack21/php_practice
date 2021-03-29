@@ -49,6 +49,12 @@ if (isset($_SESSION['admin_state'])) {
                         </a>
                     </li>
                     <li>
+                        <a href="./dashboard_location.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
+                            <i class="fas fa-map-marked-alt"></i>據點消息
+                            <i class="fas fa-angle-down d-flex justify-content-center align-items-center" style="color: transparent;"></i>
+                        </a>
+                    </li>
+                    <li>
                         <a href="#" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
                             <i class="fas fa-tshirt"></i>
                             商品
@@ -56,13 +62,13 @@ if (isset($_SESSION['admin_state'])) {
                         </a>
                         <ul class="accordion-item-list list-unstyled">
                             <li>
-                                <a href="./dashboard_product.php" class="px-4 text-decoration-none">商品列表</a>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
                             </li>
                             <li>
-                                <a href="#" class="px-4 text-decoration-none">商品列表</a>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
                             </li>
                             <li>
-                                <a href="#" class="px-4 text-decoration-none">商品列表</a>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
                             </li>
                         </ul>
                     </li>
@@ -74,75 +80,16 @@ if (isset($_SESSION['admin_state'])) {
                         </a>
                         <ul class="accordion-item-list list-unstyled">
                             <li>
-                                <a href="#" class="px-4 text-decoration-none">List2-1</a>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
                             </li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
+                            </li>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="#" class="px-4 text-decoration-none">List2-3</a>
-                    </li>
-                </ul>
-                </li>
-                <li>
-                    <a href="./dashboard_location.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-map-marked-alt"></i>據點消息
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center" style="color: transparent;"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-users"></i>
-                        會員
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
-                    </a>
-                    <ul class="accordion-item-list list-unstyled">
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-users"></i>
-                        會員
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
-                    </a>
-                    <ul class="accordion-item-list list-unstyled">
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-users"></i>
-                        會員
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
-                    </a>
-                    <ul class="accordion-item-list list-unstyled">
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-3</a>
-                        </li>
-                    </ul>
-                </li>
                 </ul>
             </aside>
             <main class="position-absolute px-0 px-md-4 py-2">
@@ -152,22 +99,30 @@ if (isset($_SESSION['admin_state'])) {
                     </ol>
                 </nav>
                 <div class="home-page-wrap px-3">
-                    <!-- <h2 style="font-size: 14px;">據點消息</h2> -->
                     <div class="">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">地圖</a>
+                                <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-chart" role="tab" aria-controls="pills-chart" aria-selected="false">圖表</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">圖表</a>
+                                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">地圖</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                <div id="location-map" class="location-map rounded" style="height:500px"></div>
+                            <div class="tab-pane fade show active" id="pills-chart" role="tabpanel" aria-labelledby="pills-chart-tab">
+                                <div class="d-lg-flex justify-content-center align-items-center bg-light rounded py-3" style="height:calc(100vh - 203px);overflow-y:scroll;">
+                                    <div class="location-chart-wrap mb-5 mb-lg-0">
+                                        <canvas id="location-chart"></canvas>
+                                    </div>
+                                    <div class="location-list-wrap">
+                                        <h4 id="location-list-title" class="location-chart-title d-flex justify-content-between align-items-center"></h4>
+                                        <ul id="location-list" class="location-list list-group list-group-flush" style="overflow-y:scroll">
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                <canvas id="location-chart" class="mb-5"></canvas>
+                            <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                <div id="location-map" class="location-map rounded" style="height:calc(100vh - 203px)"></div>
                             </div>
                         </div>
 
@@ -196,7 +151,7 @@ if (isset($_SESSION['admin_state'])) {
                 mapTypeControl: false,
                 streetViewControl: false,
                 fullscreenControl: false,
-                zoom: 7,
+                zoom: 7.75,
                 styles: [{
                         "featureType": "administrative",
                         "elementType": "all",
@@ -283,7 +238,7 @@ if (isset($_SESSION['admin_state'])) {
                     "</div>" +
                     '<h1 id="firstHeading' + data[i].id + '" class="firstHeading text-center h6">' + data[i].name + '</h1>' +
                     '<div id="bodyContent' + data[i].id + '">' +
-                    '<img src="./images/location/' + data[i].image + '" class="d-block rounded" style="width:303.48px !important;height:200px;object-fit:cover;margin-bottom:8px;"/>' +
+                    '<img src="./images/location/' + data[i].image + '" class="d-block rounded"/>' +
                     "<p class='mb-1'>" + data[i].description + "</p>" +
                     "<p class='mb-1'>" + data[i].phone + "</p>" +
                     "</div>" +
@@ -304,6 +259,10 @@ if (isset($_SESSION['admin_state'])) {
                 });
                 marker.setMap(map);
                 marker.addListener("click", () => {
+                    map.panTo(marker.getPosition());
+                    if (map.zoom <= 8) {
+                        map.setZoom(10)
+                    }
                     infowindow.open(map, marker);
                 });
             }

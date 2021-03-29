@@ -1,5 +1,6 @@
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6.5px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -174,7 +175,7 @@ select {
 
 .location-page-wrap .table-wrap {
   overflow-y: scroll;
-  height: calc(100vh - 324px);
+  height: calc(100vh - 340px);
 }
 
 .location-page-wrap .table-wrap table th {
@@ -205,7 +206,7 @@ select {
 
 @media screen and (min-width: 992px) {
   .location-page-wrap .table-wrap {
-    height: calc(100vh - 273px);
+    height: calc(100vh - 289px);
   }
 }
 
@@ -216,7 +217,16 @@ select {
 }
 
 .location-map .gm-style-iw {
+  max-width: 280px !important;
   padding: 18px 0 0 18px !important;
+}
+
+.location-map .gm-style-iw .gm-style-iw-d img {
+  width: 244px !important;
+  height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-bottom: 8px;
 }
 
 .location-map button.gm-ui-hover-effect {
@@ -230,5 +240,69 @@ select {
 
 .location-map div[role='button']:hover {
   cursor: pointer;
+}
+
+@media screen and (min-width: 576px) {
+  .location-map .gm-style-iw {
+    max-width: 339.48px !important;
+    padding: 18px 0 0 18px !important;
+  }
+  .location-map .gm-style-iw .gm-style-iw-d img {
+    width: 303.48px !important;
+    height: 200px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    margin-bottom: 8px;
+  }
+}
+
+.location-chart-wrap {
+  width: 100%;
+}
+
+.location-chart-wrap canvas {
+  width: 500px;
+  height: 500px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.location-list-wrap {
+  margin: auto;
+  width: 90%;
+}
+
+.location-list-wrap .location-list {
+  height: 300px;
+}
+
+@media screen and (min-width: 992px) {
+  .location-chart-wrap {
+    width: 60%;
+  }
+  .location-list-wrap {
+    width: 270px;
+    margin: 0 0 0 0;
+  }
+  .location-list-wrap .location-list {
+    height: 500px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .location-chart-wrap {
+    width: 50%;
+  }
+}
+
+.location-chart-title i {
+  cursor: pointer;
+  -webkit-transition: 0.15s;
+  transition: 0.15s;
+}
+
+.location-chart-title i:active {
+  -webkit-transform: scale(0.97);
+          transform: scale(0.97);
 }
 /*# sourceMappingURL=all.css.map */

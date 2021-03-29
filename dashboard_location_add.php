@@ -48,6 +48,12 @@ if (isset($_SESSION['admin_state'])) {
                         </a>
                     </li>
                     <li>
+                        <a href="./dashboard_location.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
+                            <i class="fas fa-map-marked-alt"></i>據點消息
+                            <i class="fas fa-angle-down d-flex justify-content-center align-items-center" style="color: transparent;"></i>
+                        </a>
+                    </li>
+                    <li>
                         <a href="#" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
                             <i class="fas fa-tshirt"></i>
                             商品
@@ -55,13 +61,13 @@ if (isset($_SESSION['admin_state'])) {
                         </a>
                         <ul class="accordion-item-list list-unstyled">
                             <li>
-                                <a href="./dashboard_product.php" class="px-4 text-decoration-none">商品列表</a>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
                             </li>
                             <li>
-                                <a href="#" class="px-4 text-decoration-none">商品列表</a>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
                             </li>
                             <li>
-                                <a href="#" class="px-4 text-decoration-none">商品列表</a>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
                             </li>
                         </ul>
                     </li>
@@ -73,75 +79,16 @@ if (isset($_SESSION['admin_state'])) {
                         </a>
                         <ul class="accordion-item-list list-unstyled">
                             <li>
-                                <a href="#" class="px-4 text-decoration-none">List2-1</a>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
                             </li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
+                            </li>
+                            <li>
+                                <a href="#" class="px-4 text-decoration-none">未開放</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="#" class="px-4 text-decoration-none">List2-3</a>
-                    </li>
-                </ul>
-                </li>
-                <li>
-                    <a href="./dashboard_location.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-map-marked-alt"></i>據點消息
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center" style="color: transparent;"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-users"></i>
-                        會員
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
-                    </a>
-                    <ul class="accordion-item-list list-unstyled">
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-users"></i>
-                        會員
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
-                    </a>
-                    <ul class="accordion-item-list list-unstyled">
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="accordion-item d-flex justify-content-between align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
-                        <i class="fas fa-users"></i>
-                        會員
-                        <i class="fas fa-angle-down d-flex justify-content-center align-items-center ml-auto"></i>
-                    </a>
-                    <ul class="accordion-item-list list-unstyled">
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="px-4 text-decoration-none">List2-3</a>
-                        </li>
-                    </ul>
-                </li>
                 </ul>
             </aside>
             <main class="position-absolute px-0 px-md-4 py-2">
