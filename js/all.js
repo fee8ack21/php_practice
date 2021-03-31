@@ -1,20 +1,23 @@
 $(document).ready(function () {
   // 登入頁功能
   if (window.location.pathname === '/php_practice/dashboard_admin.php') {
-      $('#loginAccount').val('')
-      $('#loginPassword').val('');
-    $('#loginAccount').keydown(function () {
-      $(this).removeClass('is-invalid');
-      $(this).removeClass('is-valid');
-      $('#loginAccountHint').text('');
-    });
-    $('#loginPassword').keydown(function () {
-      $(this).removeClass('is-invalid');
-      $(this).removeClass('is-valid');
-      $('#loginPasswordHint').text('');
-    });
+    // 登入狀態互動及提示消除
+    // $('#loginAccount').val('')
+    // $('#loginPassword').val('');
+    // $('#loginAccount').keydown(function () {
+    //   $(this).removeClass('is-invalid');
+    //   $(this).removeClass('is-valid');
+    //   $('#loginAccountHint').text('');
+    // });
+    // $('#loginPassword').keydown(function () {
+    //   $(this).removeClass('is-invalid');
+    //   $(this).removeClass('is-valid');
+    //   $('#loginPasswordHint').text('');
+    // });
     //
+    // 登入AJAX及驗證
     $('#loginSend').on('click', function () {
+      // 取得帳號及密碼欄位
       let loginAccVal = $('#loginAccount').val();
       let loginPwdVal = $('#loginPassword').val();
       //
@@ -26,16 +29,34 @@ $(document).ready(function () {
           console.log(xhr);
         },
         success: function (response) {
+          // 登入提醒訊息函式
+          function warningMessage(text) {
+            $('.warning-message').remove();
+            $('.warning-message-wrap').append('<div class="text-center warning-message alert alert-danger alert-dismissible fade show position-fixed" style="opacity:0;width:100%;top: 0px;left:50%;transform:translate(-50%,0);border-radius:0 0 0.25rem 0.25rem" role="alert"><strong>提醒：</strong ><span class="message-content">' + text + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div > ')
+            setTimeout(function () {
+              $('.warning-message').css('opacity', '100')
+            }, 50)
+            $('.close').on('click', function () {
+              $('.warning-message').fadeOut(150, function () {
+                $(this).remove();
+              })
+            })
+          }
           if (response === '無此帳號') {
-            $('#loginAccount').addClass('is-invalid');
-            $('#loginAccountHint').text('無此帳號');
+            $('#loginAccount').focus();
+            // 登入狀態互動及提示
+            // $('#loginAccount').addClass('is-invalid');
+            // $('#loginAccountHint').text('無此帳號');
+            warningMessage('請再次確認您的帳號！')
           } else if (response === '密碼錯誤') {
-            $('#loginAccount').removeClass('is-invalid');
-            $('#loginAccount').addClass('is-valid');
-            $('#loginAccountHint').text('');
-            //
-            $('#loginPassword').addClass('is-invalid');
-            $('#loginPasswordHint').text('密碼錯誤');
+            $('#loginPassword').focus();
+            // 登入狀態互動及提示
+            // $('#loginAccount').removeClass('is-invalid');
+            // $('#loginAccount').addClass('is-valid');
+            // $('#loginAccountHint').text('');
+            // $('#loginPassword').addClass('is-invalid');
+            // $('#loginPasswordHint').text('密碼錯誤');
+            warningMessage('請再次確認您的密碼！')
           } else if (response === '登入成功') {
             window.location = './dashboard_home.php';
           }
@@ -44,7 +65,7 @@ $(document).ready(function () {
     });
   }
 
-  // Layout 手風琴效果
+  // 全域佈局 - 手風琴效果
   $('.accordion-burger').on('click', function () {
     $('aside').toggleClass('active');
     $('main').toggleClass('active');
@@ -73,10 +94,7 @@ $(document).ready(function () {
         $('#location-list').append(locationChartList);
         $('#location-list-title').append('總覽');
         //
-        let northLength = 0;
-        let centralLength = 0;
-        let southLength = 0;
-        let eastLength = 0;
+        let northLength = 0, centralLength = 0, southLength = 0, eastLength = 0;
         for (let i = 0; i < data.length; i++) {
           switch (data[i].position) {
             case '北部':
@@ -93,8 +111,35 @@ $(document).ready(function () {
               break;
           }
         }
+        // 
+        function chartContentChange(position, positionLength, color) {
+          chart.data.labels.splice(0, 4);
+          chart.data.datasets.forEach((dataset) => {
+            dataset.data.splice(0, 4);
+          });
+          chart.data.labels.push(position);
+          chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(positionLength);
+          });
+          chart.data.datasets[0].backgroundColor[0] = color;
+          //
+          chart.update();
+          let locationChartStrDetail = '';
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].position === position) {
+              locationChartStrDetail +=
+                '<li style="font-size:14px" class="list-group-item bg-light">' +
+                data[i].name +
+                '</li>';
+            }
+          }
+          $('#location-list').text('').append(locationChartStrDetail);
+          $('#location-list-title').text('').append(
+            position + '<i id = "back-chart-icon" class= "fas fa-arrow-left" ></i > '
+          );
+        }
+        // 
         let ctx = document.getElementById('location-chart').getContext('2d');
-        // let labelPosition = $(window).width() < 1200 ? 'left' : 'top';
         let labelPosition = 'left';
         let chart = new Chart(ctx, {
           type: 'doughnut',
@@ -119,118 +164,37 @@ $(document).ready(function () {
               align: 'center',
               onClick: function (e, legendItem) {
                 if (legendItem.text === '北部') {
-                  chart.data.labels.splice(0, 4);
-                  chart.data.datasets.forEach((dataset) => {
-                    dataset.data.splice(0, 4);
-                  });
-                  chart.data.labels.push('北部');
-                  chart.data.datasets.forEach((dataset) => {
-                    dataset.data.push(northLength);
-                  });
-                  chart.data.datasets[0].backgroundColor[0] = 'rgba(255, 99, 132,0.8)';
-                  //
-                  chart.update();
-                  let locationChartStrDetail = '';
-                  for (let i = 0; i < data.length; i++) {
-                    if (data[i].position === '北部') {
-                      locationChartStrDetail +=
-                        '<li style="font-size:14px" class="list-group-item bg-light">' +
-                        data[i].name +
-                        '</li>';
-                    }
-                  }
-                  $('#location-list').text('');
-                  $('#location-list').append(locationChartStrDetail);
-                  $('#location-list-title').text('');
-                  $('#location-list-title').append(
-                    '北部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
-                  );
+                  chartContentChange('北部', northLength, 'rgba(255, 99, 132,0.8)')
                 } else if (legendItem.text === '中部') {
-                  chart.data.labels.splice(0, 4);
-                  chart.data.datasets.forEach((dataset) => {
-                    dataset.data.splice(0, 4);
-                  });
-                  chart.data.labels.push('中部');
-                  chart.data.datasets.forEach((dataset) => {
-                    dataset.data.push(centralLength);
-                  });
-                  chart.data.datasets[0].backgroundColor[0] = 'rgba(54, 162, 235,0.8)';
-                  //
-                  chart.update();
-                  let locationChartStrDetail = '';
-                  for (let i = 0; i < data.length; i++) {
-                    if (data[i].position === '中部') {
-                      locationChartStrDetail +=
-                        '<li style="font-size:14px" class="list-group-item bg-light">' +
-                        data[i].name +
-                        '</li>';
-                    }
-                  }
-                  $('#location-list').text('');
-                  $('#location-list').append(locationChartStrDetail);
-                  $('#location-list-title').text('');
-                  $('#location-list-title').append(
-                    '中部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
-                  );
+                  chartContentChange('中部', centralLength, 'rgba(54, 162, 235,0.8)')
                 } else if (legendItem.text === '南部') {
-                  chart.data.labels.splice(0, 4);
-                  chart.data.datasets.forEach((dataset) => {
-                    dataset.data.splice(0, 4);
-                  });
-                  chart.data.labels.push('南部');
-                  chart.data.datasets.forEach((dataset) => {
-                    dataset.data.push(southLength);
-                  });
-                  chart.data.datasets[0].backgroundColor[0] = 'rgba(255, 205, 86,0.8)';
-                  //
-                  chart.update();
-                  let locationChartStrDetail = '';
-                  for (let i = 0; i < data.length; i++) {
-                    if (data[i].position === '南部') {
-                      locationChartStrDetail +=
-                        '<li style="font-size:14px" class="list-group-item bg-light">' +
-                        data[i].name +
-                        '</li>';
-                    }
-                  }
-                  $('#location-list').text('');
-                  $('#location-list').append(locationChartStrDetail);
-                  $('#location-list-title').text('');
-                  $('#location-list-title').append(
-                    '南部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
-                  );
+                  chartContentChange('南部', northLength, 'rgba(255, 205, 86,0.8)')
                 } else if (legendItem.text === '東部') {
-                  chart.data.labels.splice(0, 4);
-                  chart.data.datasets.forEach((dataset) => {
-                    dataset.data.splice(0, 4);
-                  });
-                  chart.data.labels.push('東部');
-                  chart.data.datasets.forEach((dataset) => {
-                    dataset.data.push(eastLength);
-                  });
-                  chart.data.datasets[0].backgroundColor[0] = 'rgba(75, 192, 192,0.8)';
-                  chart.update();
-                  let locationChartStrDetail = '';
-                  for (let i = 0; i < data.length; i++) {
-                    if (data[i].position === '東部') {
-                      locationChartStrDetail +=
-                        '<li style="font-size:14px" class="list-group-item bg-light">' +
-                        data[i].name +
-                        '</li>';
-                    }
-                  }
-                  $('#location-list').text('');
-                  $('#location-list').append(locationChartStrDetail);
-                  $('#location-list-title').text('');
-                  $('#location-list-title').append(
-                    '東部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
-                  );
+                  chartContentChange('東部', eastLength, 'rgba(75, 192, 192,0.8)')
                 }
               },
             },
           },
         });
         //
+        $('#location-chart').on('click', function (e) {
+          let firstPoint = chart.getElementAtEvent(e)[0];
+          let label, value;
+          if (firstPoint) {
+            label = chart.data.labels[firstPoint._index];
+            value = chart.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
+          }
+          if (label === '北部') {
+            chartContentChange('北部', northLength, 'rgba(255, 99, 132,0.8)')
+          } else if (label === '中部') {
+            chartContentChange('中部', centralLength, 'rgba(54, 162, 235,0.8)')
+          } else if (label === '南部') {
+            chartContentChange('南部', northLength, 'rgba(255, 205, 86,0.8)')
+          } else if (label === '東部') {
+            chartContentChange('東部', eastLength, 'rgba(75, 192, 192,0.8)')
+          }
+        });
+        // 
         $('#location-list-title').on('click', function (e) {
           if (e.target.id === 'back-chart-icon') {
             chart.data.labels.splice(0, 4);
@@ -256,142 +220,26 @@ $(document).ready(function () {
                 data[i].name +
                 '</li>';
             }
-            $('#location-list').text('');
-            $('#location-list').append(locationChartStrDetail);
-            $('#location-list-title').text('');
-            $('#location-list-title').append('總覽');
-          }
-        });
-        //
-        $('#location-chart').on('click', function (e) {
-          let firstPoint = chart.getElementAtEvent(e)[0];
-          let label;
-          let value;
-          if (firstPoint) {
-            label = chart.data.labels[firstPoint._index];
-            value = chart.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
-          }
-          if (label === '北部') {
-            chart.data.labels.splice(0, 4);
-            chart.data.datasets.forEach((dataset) => {
-              dataset.data.splice(0, 4);
-            });
-            chart.data.labels.push('北部');
-            chart.data.datasets.forEach((dataset) => {
-              dataset.data.push(northLength);
-            });
-            chart.data.datasets[0].backgroundColor[0] = 'rgba(255, 99, 132,0.8)';
-            chart.update();
-            let locationChartStrDetail = '';
-            for (let i = 0; i < data.length; i++) {
-              if (data[i].position === '北部') {
-                locationChartStrDetail +=
-                  '<li style="font-size:14px" class="list-group-item bg-light">' +
-                  data[i].name +
-                  '</li>';
-              }
-            }
-            $('#location-list').text('');
-            $('#location-list').append(locationChartStrDetail);
-            $('#location-list-title').text('');
-            $('#location-list-title').append(
-              '北部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
-            );
-          } else if (label === '中部') {
-            chart.data.labels.splice(0, 4);
-            chart.data.datasets.forEach((dataset) => {
-              dataset.data.splice(0, 4);
-            });
-            chart.data.labels.push('中部');
-            chart.data.datasets.forEach((dataset) => {
-              dataset.data.push(centralLength);
-            });
-            chart.data.datasets[0].backgroundColor[0] = 'rgba(54, 162, 235,0.8)';
-            chart.update();
-            let locationChartStrDetail = '';
-            for (let i = 0; i < data.length; i++) {
-              if (data[i].position === '中部') {
-                locationChartStrDetail +=
-                  '<li style="font-size:14px" class="list-group-item bg-light">' +
-                  data[i].name +
-                  '</li>';
-              }
-            }
-            $('#location-list').text('');
-            $('#location-list').append(locationChartStrDetail);
-            $('#location-list-title').text('');
-            $('#location-list-title').append(
-              '中部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
-            );
-          } else if (label === '南部') {
-            chart.data.labels.splice(0, 4);
-            chart.data.datasets.forEach((dataset) => {
-              dataset.data.splice(0, 4);
-            });
-            chart.data.labels.push('南部');
-            chart.data.datasets.forEach((dataset) => {
-              dataset.data.push(southLength);
-            });
-            chart.data.datasets[0].backgroundColor[0] = 'rgba(255, 205, 86,0.8)';
-            chart.update();
-            let locationChartStrDetail = '';
-            for (let i = 0; i < data.length; i++) {
-              if (data[i].position === '南部') {
-                locationChartStrDetail +=
-                  '<li style="font-size:14px" class="list-group-item bg-light">' +
-                  data[i].name +
-                  '</li>';
-              }
-            }
-            $('#location-list').text('');
-            $('#location-list').append(locationChartStrDetail);
-            $('#location-list-title').text('');
-            $('#location-list-title').append(
-              '南部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
-            );
-          } else if (label === '東部') {
-            chart.data.labels.splice(0, 4);
-            chart.data.datasets.forEach((dataset) => {
-              dataset.data.splice(0, 4);
-            });
-            chart.data.labels.push('東部');
-            chart.data.datasets.forEach((dataset) => {
-              dataset.data.push(eastLength);
-            });
-            chart.data.datasets[0].backgroundColor[0] = 'rgba(75, 192, 192,0.8)';
-            chart.update();
-            let locationChartStrDetail = '';
-            for (let i = 0; i < data.length; i++) {
-              if (data[i].position === '東部') {
-                locationChartStrDetail +=
-                  '<li style="font-size:14px" class="list-group-item bg-light">' +
-                  data[i].name +
-                  '</li>';
-              }
-            }
-            $('#location-list').text('');
-            $('#location-list').append(locationChartStrDetail);
-            $('#location-list-title').text('');
-            $('#location-list-title').append(
-              '東部<i id="back-chart-icon" class="fas fa-arrow-left"></i>'
-            );
+            $('#location-list').text('').append(locationChartStrDetail);
+            $('#location-list-title').text('').append('總覽');
           }
         });
         //
         function chartListRWD() {
+          let chart = document.getElementById('location-chart');
+          let chartHeight = chart.offsetHeight;
+          let totalLastHeight = 327 + chartHeight;
+          let chartList = document.getElementById('location-list');
           if ($(window).width() < 992) {
-            let chart = document.getElementById('location-chart');
-            let chartHeight = chart.offsetHeight;
-            let totalLastHeight = 327 + chartHeight;
-            let chartList = document.getElementById('location-list');
-            console.log(chartList);
             chartList.style['height'] = 'calc(100vh - ' + totalLastHeight + 'px)';
+          } else {
+            chartList.style['height'] = '500px';
           }
         }
+        chartListRWD();
         window.onresize = function () {
           chartListRWD();
         };
-        chartListRWD();
       },
     });
     //
@@ -400,19 +248,13 @@ $(document).ready(function () {
   if (window.location.pathname === '/php_practice/dashboard_location.php') {
     function locationHomeRWD() {
       if ($(window).width() < 500) {
-        $('#location-add-btn').text('');
-        $('#location-add-btn').append('<i class="fas fa-plus"></i>');
-        $('#location-delete-btn').text('');
-        $('#location-delete-btn').append('<i class="fas fa-trash-alt"></i>');
-        $('#location-clear-btn').text('');
-        $('#location-clear-btn').append('<i class="fas fa-redo"></i>');
+        $('#location-add-btn').text('').append('<i class="fas fa-plus"></i>');
+        $('#location-delete-btn').text('').append('<i class="fas fa-trash-alt"></i>');
+        $('#location-clear-btn').text('').append('<i class="fas fa-redo"></i>');
       } else {
-        $('#location-add-btn').text('');
-        $('#location-add-btn').append('<i class="fas fa-plus mr-1"></i>新增據點');
-        $('#location-delete-btn').text('');
-        $('#location-delete-btn').append('<i class="fas fa-trash-alt mr-1"></i>刪除據點');
-        $('#location-clear-btn').text('');
-        $('#location-clear-btn').append('<i class="fas fa-redo mr-1"></i>清除條件');
+        $('#location-add-btn').text('').append('<i class="fas fa-plus mr-1"></i>新增據點');
+        $('#location-delete-btn').text('').append('<i class="fas fa-trash-alt mr-1"></i>刪除據點');
+        $('#location-clear-btn').text('').append('<i class="fas fa-redo mr-1"></i>清除條件');
       }
     }
     locationHomeRWD();
@@ -420,7 +262,19 @@ $(document).ready(function () {
       locationHomeRWD();
     };
   }
-  // 據點消息修改功能
+  // 據點消息 修改/修改 功能
+  // 圖片上傳顯示
+  function imgUploadDisplay(uploadEle, DisplayEle) {
+    $(uploadEle).change(function () {
+      let selectedFile = $(this)[0].files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(selectedFile);
+      reader.onload = function (e) {
+        $(DisplayEle).attr('src', e.target.result);
+      };
+    });
+  }
+  // 
   $('#location-mod-confirm-btn').on('click', function () {
     let imageVal = $('#location-mod-image').attr('src');
     let nameVal = $('#location-mod-name').val();
@@ -440,19 +294,9 @@ $(document).ready(function () {
     $('#location-mod-phone-confirm').text(phoneVal);
     $('#location-mod-description-confirm').text(descriptionVal);
   });
-  $('#location-mod-image-upload').change(function () {
-    let selectedFile = $(this)[0].files[0];
-    console.log($(this)[0].files[0]);
-    console.log($(this)[0].files[0].name);
-    var reader = new FileReader();
-    reader.readAsDataURL(selectedFile);
-    reader.onload = function (e) {
-      $('#location-mod-image').attr('src', e.target.result);
-    };
-  });
+  imgUploadDisplay('#location-mod-image-upload', '#location-mod-image')
   // 據點消息上傳功能
   $('#location-add-confirm-btn').on('click', function () {
-    console.log('123');
     let imageVal = $('#location-add-image').attr('src');
     let nameVal = $('#location-add-name').val();
     let positionVal = $('#location-add-position').val();
@@ -471,17 +315,7 @@ $(document).ready(function () {
     $('#location-add-phone-confirm').text(phoneVal);
     $('#location-add-description-confirm').text(descriptionVal);
   });
-  //
-  $('#location-add-image-upload').change(function () {
-    let selectedFile = $(this)[0].files[0];
-    console.log($(this)[0].files[0]);
-    console.log($(this)[0].files[0].name);
-    var reader = new FileReader();
-    reader.readAsDataURL(selectedFile);
-    reader.onload = function (e) {
-      $('#location-add-image').attr('src', e.target.result);
-    };
-  });
+  imgUploadDisplay('#location-add-image-upload', '#location-add-image')
   // 據點消息刪除功能
   $('.table-wrap input[type=checkbox]').change(function () {
     let checkboxArr = $('.table-wrap input[type=checkbox]');
@@ -509,7 +343,6 @@ $(document).ready(function () {
         '">';
       dataArr[i] = checkedArr[i].dataset.id;
     }
-    $('#location-add-modal-body').text('');
-    $('#location-add-modal-body').append(modalStr);
+    $('#location-add-modal-body').text('').append(modalStr);
   });
 });

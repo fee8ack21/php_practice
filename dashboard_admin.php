@@ -20,23 +20,28 @@ if (isset($_SESSION['admin_state'])) {
 </head>
 
 <body>
-    <div class="admin-wrap container d-flex align-items-center" style="height: 100vh;">
-        <form action="" class="rounded bg-white py-5 px-4" autocomplete="off">
-            <h1 class="text-center h5 mb-5">
-                後台登入
-            </h1>
+    <div class="admin-wrap container position-relative" style="height: 100vh;">
+        <div class="warning-message-wrap">
+        </div>
+        <form action="" class="rounded bg-white py-5 px-4 position-fixed" style="top: 50%;left:50%;transform:translate(-50%,-50%)" autocomplete="off">
             <div class="form-group">
                 <label for="loginAccount">帳號：root</label>
-                <input type="text" class="form-control" id="loginAccount" name="loginAccount" placeholder="請輸入帳號">
+                <div class="position-relative">
+                    <i class="fas fa-user position-absolute" style="color: #495057;top:50%;left:10px;transform:translate(0,-50%)"></i>
+                    <input type="text" style="padding-left: 32px;" class="form-control" id="loginAccount" name="loginAccount" placeholder="請輸入帳號">
+                </div>
                 <small class=" text-danger" id="loginAccountHint"></small>
             </div>
             <div class="form-group">
                 <label for="loginPassword">密碼：12345</label>
-                <input type="password" class="form-control" id="loginPassword" name="loginPassword" placeholder="請輸入密碼" autocomplete="new-password">
+                <div class="position-relative">
+                    <i class="fa fa-lock position-absolute" style="color:#495057;top:50%;left:10px;transform:translate(0,-50%)"></i>
+                    <input type="password" style="padding-left: 32px;" class="form-control" id="loginPassword" name="loginPassword" placeholder="請輸入密碼" autocomplete="new-password">
+                </div>
                 <small class="text-danger" id="loginPasswordHint"></small>
             </div>
             <div class="form-btn-group d-flex justify-content-center">
-                <input type="button" id="loginSend" class="btn btn-primary mx-2" value="登入">
+                <input type="button" id="loginSend" class="btn btn-dark mx-2" value="登入">
             </div>
         </form>
     </div>
