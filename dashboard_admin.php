@@ -21,18 +21,18 @@ if (isset($_SESSION['admin_state'])) {
 
 <body>
     <div class="admin-wrap container d-flex align-items-center" style="height: 100vh;">
-        <form action="" class="rounded py-5 px-3" autocomplete="off">
-            <h1 class="text-center h5">
+        <form action="" class="rounded bg-white py-5 px-4" autocomplete="off">
+            <h1 class="text-center h5 mb-5">
                 後台登入
             </h1>
             <div class="form-group">
-                <label for="loginAccount">帳號</label>
-                <input type="text" class="form-control" id="loginAccount" name="loginAccount" placeholder="請輸入帳號" autocomplete="off">
-                <small class="text-danger" id="loginAccountHint"></small>
+                <label for="loginAccount">帳號：root</label>
+                <input type="text" class="form-control" id="loginAccount" name="loginAccount" placeholder="請輸入帳號">
+                <small class=" text-danger" id="loginAccountHint"></small>
             </div>
-            <div class="form-group mb-5">
-                <label for="loginPassword">密碼</label>
-                <input type="password" class="form-control" id="loginPassword" name="loginPassword" placeholder="請輸入密碼" autocomplete="off">
+            <div class="form-group">
+                <label for="loginPassword">密碼：12345</label>
+                <input type="password" class="form-control" id="loginPassword" name="loginPassword" placeholder="請輸入密碼" autocomplete="new-password">
                 <small class="text-danger" id="loginPasswordHint"></small>
             </div>
             <div class="form-btn-group d-flex justify-content-center">

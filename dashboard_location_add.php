@@ -167,7 +167,7 @@ if (isset($_SESSION['admin_state'])) {
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img class="img-fluid mb-3 d-block mx-auto" id="location-add-image-confirm" src="" alt="">
+                                        <img class="add-modal-img img-fluid mb-3 d-block mx-auto" id="location-add-image-confirm" src="" alt="">
                                         <p class="font-weight-bold">名稱：<span id="location-add-name-confirm" style="font-weight:400"></span></p>
                                         <p class="font-weight-bold">區域：<span id="location-add-position-confirm" style="font-weight:400"></span></p>
                                         <p class="font-weight-bold">地址：<span id="location-add-address-confirm" style="font-weight:400"></span></p>

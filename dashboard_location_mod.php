@@ -196,7 +196,7 @@ if ($res1) {
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img class="img-fluid mb-3 d-block mx-auto" id="location-mod-image-confirm" src="" alt="">
+                                        <img class="mod-modal-img img-fluid mb-3 d-block mx-auto" id="location-mod-image-confirm" src="" alt="">
                                         <p class="font-weight-bold">名稱：<span id="location-mod-name-confirm" style="font-weight:400"></span></p>
                                         <p class="font-weight-bold">區域：<span id="location-mod-position-confirm" style="font-weight:400"></span></p>
                                         <p class="font-weight-bold">地址：<span id="location-mod-address-confirm" style="font-weight:400"></span></p>

@@ -1,7 +1,8 @@
 $(document).ready(function () {
   // 登入頁功能
   if (window.location.pathname === '/php_practice/dashboard_admin.php') {
-    alert('帳號：root 密碼：12345');
+      $('#loginAccount').val('')
+      $('#loginPassword').val('');
     $('#loginAccount').keydown(function () {
       $(this).removeClass('is-invalid');
       $(this).removeClass('is-valid');
@@ -261,7 +262,7 @@ $(document).ready(function () {
             $('#location-list-title').append('總覽');
           }
         });
-
+        //
         $('#location-chart').on('click', function (e) {
           let firstPoint = chart.getElementAtEvent(e)[0];
           let label;
@@ -377,6 +378,20 @@ $(document).ready(function () {
           }
         });
         //
+        function chartListRWD() {
+          if ($(window).width() < 992) {
+            let chart = document.getElementById('location-chart');
+            let chartHeight = chart.offsetHeight;
+            let totalLastHeight = 327 + chartHeight;
+            let chartList = document.getElementById('location-list');
+            console.log(chartList);
+            chartList.style['height'] = 'calc(100vh - ' + totalLastHeight + 'px)';
+          }
+        }
+        window.onresize = function () {
+          chartListRWD();
+        };
+        chartListRWD();
       },
     });
     //

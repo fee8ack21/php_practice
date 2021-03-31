@@ -93,14 +93,15 @@ select {
   background-color: #545b62 !important;
 }
 
-.dashboard-wrap aside .accordion .accordion-item.active .fa-angle-down {
-  left: -3px;
+.dashboard-wrap aside .accordion .accordion-item.active .fa-angle-down::before {
+  -webkit-transform-origin: center;
+          transform-origin: center;
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
 
-.dashboard-wrap aside .accordion .accordion-item .fa-angle-down {
-  position: relative;
+.dashboard-wrap aside .accordion .accordion-item .fa-angle-down::before {
+  width: 9.25px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
@@ -212,8 +213,25 @@ select {
 
 .location-mod-wrap,
 .location-add-wrap {
-  height: calc(100vh - 134px);
+  height: calc(100vh - 150px);
   overflow-y: scroll;
+}
+
+.add-modal-img,
+.mod-modal-img {
+  width: 100%;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+@media screen and (min-width: 576px) {
+  .add-modal-img,
+  .mod-modal-img {
+    height: auto;
+  }
 }
 
 .location-map .gm-style-iw {
@@ -273,7 +291,11 @@ select {
 }
 
 .location-list-wrap .location-list {
-  height: 300px;
+  overflow-y: scroll;
+}
+
+.location-list-wrap h4 {
+  font-size: 20px;
 }
 
 @media screen and (min-width: 992px) {
@@ -281,17 +303,23 @@ select {
     width: 60%;
   }
   .location-list-wrap {
-    width: 270px;
+    width: 230px;
     margin: 0 0 0 0;
   }
   .location-list-wrap .location-list {
     height: 500px;
+  }
+  .location-list-wrap h4 {
+    font-size: 24px;
   }
 }
 
 @media screen and (min-width: 1200px) {
   .location-chart-wrap {
     width: 50%;
+  }
+  .location-list-wrap {
+    width: 270px;
   }
 }
 
