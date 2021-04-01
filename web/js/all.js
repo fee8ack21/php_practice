@@ -19,7 +19,7 @@ $(document).ready(function () {
     locationURL = '/php_practice/web/dashboard_location.php';
   }
   // 登入頁功能
-  if (window.location.pathname === adminURL) {
+  if (window.location.pathname === adminURL || window.location.pathname === '/index.php') {
     // 登入狀態互動及提示消除
     // $('#loginAccount').val('')
     // $('#loginPassword').val('');

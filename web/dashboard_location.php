@@ -303,7 +303,7 @@ if ($res1) {
                                                     <td>' . $rows[$i]["description"] . '</td>
                                                     <td><img src="./images/location/' . $rows[$i]["image"] . '" style="height:40px;"></td>
                                                     <td>
-                                                        <a href="./dashboard_location_mod.php?location_id=' . $rows[$i]["id"] . '" type="button" class="btn btn-warning w-100">
+                                                        <a href="./dashboard_location_mod.php?location_id=' . $rows[$i]["id"] . '" class="btn btn-warning w-100">
                                                             <i class="fas fa-cogs"></i>
                                                         </a>
                                                     </td>
