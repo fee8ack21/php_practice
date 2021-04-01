@@ -80,7 +80,7 @@ $(document).ready(function () {
     $(this).siblings('.accordion-item-list').toggleClass('active');
   });
   // 首頁
-  if (window.location.pathname === '/php_practice/dashboard_home.php') {
+  if (window.location.pathname === '/dashboard_home.php') {
     $.ajax({
       url: 'https://pin-jui-php-dashboard.herokuapp.com/doAction_dashboard.php?state=home',
       type: 'get',
@@ -253,7 +253,7 @@ $(document).ready(function () {
     //
   }
   // 據點消息首頁 RWD
-  if (window.location.pathname === '/php_practice/dashboard_location.php') {
+  if (window.location.pathname === '/dashboard_location.php') {
     function locationHomeRWD() {
       if ($(window).width() < 500) {
         $('#location-add-btn').text('').append('<i class="fas fa-plus"></i>');
