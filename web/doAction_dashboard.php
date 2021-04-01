@@ -15,8 +15,8 @@ if ($state_get === 'login') {
     $login_account = isset($_POST["loginAccount"]) ? $_POST["loginAccount"] : '';
     $login_password = isset($_POST["loginPassword"]) ? $_POST["loginPassword"] : '';
     // 
-    $query1 = "select * from dashboard_admin WHERE account = '" . $login_account . "'";
-    $query2 = "select * from dashboard_admin WHERE account = '" . $login_account . "' AND password = '" . $login_password . "'";
+    $query1 = "select * from dashboard_admin WHERE binary account = '" . $login_account . "'";
+    $query2 = "select * from dashboard_admin WHERE binary account = '" . $login_account . "' AND binary password = '" . $login_password . "'";
     // 執行query，判斷返回值，$res 會是一物件內容
     $res1 = mysqli_query($link, $query1);
     if ($res1) {
