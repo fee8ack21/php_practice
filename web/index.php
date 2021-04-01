@@ -5,6 +5,7 @@ if (isset($_SESSION['admin_state'])) {
         header('Location:./dashboard_home.php');
     }
 }
+echo getenv("CLEARDB_DATABASE_URL")
 ?>
 <!doctype html>
 <html lang="en">
