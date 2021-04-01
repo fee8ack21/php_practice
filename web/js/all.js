@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // 登入頁功能
-  if (window.location.pathname === '/php_practice/dashboard_admin.php') {
+  if (window.location.pathname === '/') {
     // 登入狀態互動及提示消除
     // $('#loginAccount').val('')
     // $('#loginPassword').val('');
@@ -20,9 +20,10 @@ $(document).ready(function () {
       // 取得帳號及密碼欄位
       let loginAccVal = $('#loginAccount').val();
       let loginPwdVal = $('#loginPassword').val();
+
       //
       $.ajax({
-        url: 'doAction_dashboard.php?state=login',
+        url: 'https://pin-jui-php-dashboard.herokuapp.com/doAction_dashboard.php?state=login',
         type: 'post',
         data: { loginAccount: loginAccVal, loginPassword: loginPwdVal },
         error: function (xhr) {
@@ -32,22 +33,26 @@ $(document).ready(function () {
           // 登入提醒訊息函式
           function warningMessage(text) {
             $('.warning-message').remove();
-            $('.warning-message-wrap').append('<div class="text-center warning-message alert alert-danger alert-dismissible fade show position-fixed" style="opacity:0;width:100%;top: 0px;left:50%;transform:translate(-50%,0);border-radius:0 0 0.25rem 0.25rem" role="alert"><strong>提醒：</strong ><span class="message-content">' + text + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div > ')
+            $('.warning-message-wrap').append(
+              '<div class="text-center warning-message alert alert-danger alert-dismissible fade show position-fixed" style="opacity:0;width:100%;top: 0px;left:50%;transform:translate(-50%,0);border-radius:0 0 0.25rem 0.25rem" role="alert"><strong>提醒：</strong ><span class="message-content">' +
+                text +
+                '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div > '
+            );
             setTimeout(function () {
-              $('.warning-message').css('opacity', '100')
-            }, 50)
+              $('.warning-message').css('opacity', '100');
+            }, 50);
             $('.close').on('click', function () {
               $('.warning-message').fadeOut(150, function () {
                 $(this).remove();
-              })
-            })
+              });
+            });
           }
           if (response === '無此帳號') {
             $('#loginAccount').focus();
             // 登入狀態互動及提示
             // $('#loginAccount').addClass('is-invalid');
             // $('#loginAccountHint').text('無此帳號');
-            warningMessage('請再次確認您的帳號！')
+            warningMessage('請再次確認您的帳號！');
           } else if (response === '密碼錯誤') {
             $('#loginPassword').focus();
             // 登入狀態互動及提示
@@ -56,7 +61,7 @@ $(document).ready(function () {
             // $('#loginAccountHint').text('');
             // $('#loginPassword').addClass('is-invalid');
             // $('#loginPasswordHint').text('密碼錯誤');
-            warningMessage('請再次確認您的密碼！')
+            warningMessage('請再次確認您的密碼！');
           } else if (response === '登入成功') {
             window.location = './dashboard_home.php';
           }
@@ -77,7 +82,7 @@ $(document).ready(function () {
   // 首頁
   if (window.location.pathname === '/php_practice/dashboard_home.php') {
     $.ajax({
-      url: 'doAction_dashboard.php?state=home',
+      url: 'https://pin-jui-php-dashboard.herokuapp.com/doAction_dashboard.php?state=home',
       type: 'get',
       error: function (xhr) {
         console.log(xhr);
@@ -94,7 +99,10 @@ $(document).ready(function () {
         $('#location-list').append(locationChartList);
         $('#location-list-title').append('總覽');
         //
-        let northLength = 0, centralLength = 0, southLength = 0, eastLength = 0;
+        let northLength = 0,
+          centralLength = 0,
+          southLength = 0,
+          eastLength = 0;
         for (let i = 0; i < data.length; i++) {
           switch (data[i].position) {
             case '北部':
@@ -111,7 +119,7 @@ $(document).ready(function () {
               break;
           }
         }
-        // 
+        //
         function chartContentChange(position, positionLength, color) {
           chart.data.labels.splice(0, 4);
           chart.data.datasets.forEach((dataset) => {
@@ -134,11 +142,11 @@ $(document).ready(function () {
             }
           }
           $('#location-list').text('').append(locationChartStrDetail);
-          $('#location-list-title').text('').append(
-            position + '<i id = "back-chart-icon" class= "fas fa-arrow-left" ></i > '
-          );
+          $('#location-list-title')
+            .text('')
+            .append(position + '<i id = "back-chart-icon" class= "fas fa-arrow-left" ></i > ');
         }
-        // 
+        //
         let ctx = document.getElementById('location-chart').getContext('2d');
         let labelPosition = 'left';
         let chart = new Chart(ctx, {
@@ -164,13 +172,13 @@ $(document).ready(function () {
               align: 'center',
               onClick: function (e, legendItem) {
                 if (legendItem.text === '北部') {
-                  chartContentChange('北部', northLength, 'rgba(255, 99, 132,0.8)')
+                  chartContentChange('北部', northLength, 'rgba(255, 99, 132,0.8)');
                 } else if (legendItem.text === '中部') {
-                  chartContentChange('中部', centralLength, 'rgba(54, 162, 235,0.8)')
+                  chartContentChange('中部', centralLength, 'rgba(54, 162, 235,0.8)');
                 } else if (legendItem.text === '南部') {
-                  chartContentChange('南部', northLength, 'rgba(255, 205, 86,0.8)')
+                  chartContentChange('南部', northLength, 'rgba(255, 205, 86,0.8)');
                 } else if (legendItem.text === '東部') {
-                  chartContentChange('東部', eastLength, 'rgba(75, 192, 192,0.8)')
+                  chartContentChange('東部', eastLength, 'rgba(75, 192, 192,0.8)');
                 }
               },
             },
@@ -185,16 +193,16 @@ $(document).ready(function () {
             value = chart.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
           }
           if (label === '北部') {
-            chartContentChange('北部', northLength, 'rgba(255, 99, 132,0.8)')
+            chartContentChange('北部', northLength, 'rgba(255, 99, 132,0.8)');
           } else if (label === '中部') {
-            chartContentChange('中部', centralLength, 'rgba(54, 162, 235,0.8)')
+            chartContentChange('中部', centralLength, 'rgba(54, 162, 235,0.8)');
           } else if (label === '南部') {
-            chartContentChange('南部', northLength, 'rgba(255, 205, 86,0.8)')
+            chartContentChange('南部', northLength, 'rgba(255, 205, 86,0.8)');
           } else if (label === '東部') {
-            chartContentChange('東部', eastLength, 'rgba(75, 192, 192,0.8)')
+            chartContentChange('東部', eastLength, 'rgba(75, 192, 192,0.8)');
           }
         });
-        // 
+        //
         $('#location-list-title').on('click', function (e) {
           if (e.target.id === 'back-chart-icon') {
             chart.data.labels.splice(0, 4);
@@ -274,7 +282,7 @@ $(document).ready(function () {
       };
     });
   }
-  // 
+  //
   $('#location-mod-confirm-btn').on('click', function () {
     let imageVal = $('#location-mod-image').attr('src');
     let nameVal = $('#location-mod-name').val();
@@ -294,7 +302,7 @@ $(document).ready(function () {
     $('#location-mod-phone-confirm').text(phoneVal);
     $('#location-mod-description-confirm').text(descriptionVal);
   });
-  imgUploadDisplay('#location-mod-image-upload', '#location-mod-image')
+  imgUploadDisplay('#location-mod-image-upload', '#location-mod-image');
   // 據點消息上傳功能
   $('#location-add-confirm-btn').on('click', function () {
     let imageVal = $('#location-add-image').attr('src');
@@ -315,7 +323,7 @@ $(document).ready(function () {
     $('#location-add-phone-confirm').text(phoneVal);
     $('#location-add-description-confirm').text(descriptionVal);
   });
-  imgUploadDisplay('#location-add-image-upload', '#location-add-image')
+  imgUploadDisplay('#location-add-image-upload', '#location-add-image');
   // 據點消息刪除功能
   $('.table-wrap input[type=checkbox]').change(function () {
     let checkboxArr = $('.table-wrap input[type=checkbox]');
