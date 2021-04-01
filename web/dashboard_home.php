@@ -2,10 +2,10 @@
 session_start();
 if (isset($_SESSION['admin_state'])) {
     if ($_SESSION['admin_state'] !== 'success') {
-        header('Location:./index.php');
+        header('Location:./');
     }
 } else {
-    header('Location:./index.php');
+    header('Location:./');
 }
 ?>
 <!doctype html>
