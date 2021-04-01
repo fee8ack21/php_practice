@@ -1,6 +1,25 @@
 $(document).ready(function () {
+  // 路徑設定
+  let adminURL = '';
+  let adminAJAX = '';
+  let homeURL = '';
+  let homeAJAX = '';
+  let locationURL = '';
+  if (window.location.host === 'pin-jui-php-dashboard.herokuapp.com') {
+    adminURL = '/';
+    adminAJAX = 'https://pin-jui-php-dashboard.herokuapp.com/doAction_dashboard.php?state=login';
+    homeURL = '/dashboard_home.php';
+    homeAJAX = 'https://pin-jui-php-dashboard.herokuapp.com/doAction_dashboard.php?state=home';
+    locationURL = '/dashboard_location.php';
+  } else {
+    adminURL = '/php_practice/web/';
+    adminAJAX = 'http://localhost/php_practice/web/doAction_dashboard.php?state=login';
+    homeURL = '/php_practice/web/dashboard_home.php';
+    homeAJAX = 'http://localhost/php_practice/web/doAction_dashboard.php?state=home';
+    locationURL = '/php_practice/web/dashboard_location.php';
+  }
   // 登入頁功能
-  if (window.location.pathname === '/') {
+  if (window.location.pathname === adminURL) {
     // 登入狀態互動及提示消除
     // $('#loginAccount').val('')
     // $('#loginPassword').val('');
@@ -23,7 +42,7 @@ $(document).ready(function () {
 
       //
       $.ajax({
-        url: 'https://pin-jui-php-dashboard.herokuapp.com/doAction_dashboard.php?state=login',
+        url: adminAJAX,
         type: 'post',
         data: { loginAccount: loginAccVal, loginPassword: loginPwdVal },
         error: function (xhr) {
@@ -80,9 +99,9 @@ $(document).ready(function () {
     $(this).siblings('.accordion-item-list').toggleClass('active');
   });
   // 首頁
-  if (window.location.pathname === '/dashboard_home.php') {
+  if (window.location.pathname === homeURL) {
     $.ajax({
-      url: 'https://pin-jui-php-dashboard.herokuapp.com/doAction_dashboard.php?state=home',
+      url: homeAJAX,
       type: 'get',
       error: function (xhr) {
         console.log(xhr);
@@ -253,7 +272,7 @@ $(document).ready(function () {
     //
   }
   // 據點消息首頁 RWD
-  if (window.location.pathname === '/dashboard_location.php') {
+  if (window.location.pathname === locationURL) {
     function locationHomeRWD() {
       if ($(window).width() < 500) {
         $('#location-add-btn').text('').append('<i class="fas fa-plus"></i>');

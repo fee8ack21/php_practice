@@ -57,7 +57,7 @@ if ($state_get === 'logout') {
     // 
     unset($_SESSION['admin_state']);
     unset($_SESSION['admin_user']);
-    header('Location:./dashboard_admin.php');
+    header('Location:./');
 }
 // 首頁
 if ($state_get === 'home') {

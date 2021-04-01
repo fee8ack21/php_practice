@@ -2,10 +2,10 @@
 session_start();
 if (isset($_SESSION['admin_state'])) {
     if ($_SESSION['admin_state'] !== 'success') {
-        header('Location:./dashboard_admin.php');
+        header('Location:./index.php');
     }
 } else {
-    header('Location:./dashboard_admin.php');
+    header('Location:./index.php');
 }
 // 
 require_once('db_connect.php');
