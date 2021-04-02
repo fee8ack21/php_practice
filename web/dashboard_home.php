@@ -130,12 +130,12 @@ if (isset($_SESSION['admin_state'])) {
                                 <div class="d-flex flex-column justify-content-center align-items-center bg-light rounded py-3" style="height:calc(100vh - 203px);overflow-y:scroll;">
                                     <div class="d-flex justify-content-center align-items-center mb-3">
                                         <button id="member-chart-year-minus" class="btn btn-light mr-3">-</button>
-                                        <h4 id="member-chart-year" class="mb-0"></h4>
+                                        <h4 id="member-chart-year" class="mb-0 h5"></h4>
                                         <button id="member-chart-year-add" class="btn btn-light ml-3">+</button>
                                     </div>
                                     <div class="d-flex justify-content-center align-items-center">
                                         <div class="member-chart-wrap">
-                                            <canvas id="member-chart" width="100%" height="100%"></canvas>
+                                            <canvas id="member-chart" width="400" height="500"></canvas>
                                         </div>
                                     </div>
                                 </div>

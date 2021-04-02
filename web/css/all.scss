@@ -231,11 +231,21 @@ select {
     }
   }
   .member-chart-wrap {
-    width: 400px;
+    width: 300px;
+  }
+  #member-chart-year {
+    font-size: 20px;
   }
 }
 
 // 首頁 RWD
+@media screen and (min-width: 500px) {
+  .home-page-wrap {
+    .member-chart-wrap {
+      width: 400px;
+    }
+  }
+}
 @media screen and (min-width: 576px) {
   .home-page-wrap {
     // Google Map Style
@@ -253,9 +263,6 @@ select {
         }
       }
     }
-    .member-chart-wrap {
-      width: 400px;
-    }
   }
 }
 @media screen and (min-width: 992px) {
@@ -272,6 +279,12 @@ select {
       h4 {
         font-size: 24px;
       }
+    }
+    .member-chart-wrap {
+      width: 500px;
+    }
+    #member-chart-year {
+      font-size: 24px;
     }
   }
 }

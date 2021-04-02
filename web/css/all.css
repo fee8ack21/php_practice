@@ -239,6 +239,20 @@ select {
           transform: scale(0.97);
 }
 
+.home-page-wrap .member-chart-wrap {
+  width: 300px;
+}
+
+.home-page-wrap #member-chart-year {
+  font-size: 20px;
+}
+
+@media screen and (min-width: 500px) {
+  .home-page-wrap .member-chart-wrap {
+    width: 400px;
+  }
+}
+
 @media screen and (min-width: 576px) {
   .home-page-wrap .location-map .gm-style-iw {
     max-width: 339.48px !important;
@@ -265,6 +279,12 @@ select {
     height: 500px;
   }
   .home-page-wrap .location-list-wrap h4 {
+    font-size: 24px;
+  }
+  .home-page-wrap .member-chart-wrap {
+    width: 500px;
+  }
+  .home-page-wrap #member-chart-year {
     font-size: 24px;
   }
 }
