@@ -113,7 +113,7 @@ if (isset($_SESSION['admin_state'])) {
                                 <a class="nav-link" id="pills-map-tab" data-toggle="pill" href="#pills-map" role="tab" aria-controls="pills-map" aria-selected="true">地圖</a>
                             </li>
                         </ul>
-                        <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-content" id="pills-tabContent" style="height:calc(100vh - 203px);overflow-y:scroll;">
                             <div class="tab-pane fade show active" id="pills-chart" role="tabpanel" aria-labelledby="pills-chart-tab">
                                 <div class="d-lg-flex justify-content-center align-items-center bg-light rounded py-3" style="min-height:calc(100vh - 203px);overflow-y:scroll;">
                                     <div class="location-chart-wrap mb-5 mb-lg-0">
