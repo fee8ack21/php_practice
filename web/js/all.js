@@ -374,6 +374,9 @@ $(document).ready(function () {
             novLen,
             decLen,
           ]; //
+          let totalDataLenth = dataArr.reduce(function (a, b) {
+            return a + b;
+          });
           if (changeState === 'minus' || changeState === 'add') {
             memberChart.data.datasets.label = targetYear;
             memberChart.data.datasets[0].data.splice(0, 12);
@@ -384,6 +387,7 @@ $(document).ready(function () {
           }
           //
           $('#member-chart-year').text(targetYear);
+          $('#member-chart-detail-number').text(totalDataLenth);
         }
         //
         yearChange();

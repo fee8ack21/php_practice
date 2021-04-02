@@ -247,6 +247,10 @@ select {
   font-size: 20px;
 }
 
+.home-page-wrap .member-chart-detail {
+  font-size: 12px;
+}
+
 @media screen and (min-width: 500px) {
   .home-page-wrap .member-chart-wrap {
     width: 400px;
@@ -286,6 +290,9 @@ select {
   }
   .home-page-wrap #member-chart-year {
     font-size: 24px;
+  }
+  .home-page-wrap .member-chart-detail {
+    font-size: 14px;
   }
 }
 
