@@ -134,8 +134,8 @@ if (isset($_SESSION['admin_state'])) {
                                         <button id="member-chart-year-add" class="btn btn-light ml-3">+</button>
                                     </div>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <div class="member-chart-wrap" style="width: 600px;">
-                                            <canvas id="member-chart" width="400" height="400"></canvas>
+                                        <div class="member-chart-wrap">
+                                            <canvas id="member-chart" width="100%" height="100%"></canvas>
                                         </div>
                                     </div>
                                 </div>
