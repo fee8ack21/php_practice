@@ -259,7 +259,8 @@ $(document).ready(function () {
         function chartListRWD() {
           let chart = document.getElementById('location-chart');
           let chartHeight = chart.offsetHeight;
-          let totalLastHeight = 327 + chartHeight;
+          let totalLastHeight = 337 + chartHeight; // test
+          // let totalLastHeight = 327 + chartHeight;
           let chartList = document.getElementById('location-list');
           if ($(window).width() < 992) {
             chartList.style['height'] = 'calc(100vh - ' + totalLastHeight + 'px)';
