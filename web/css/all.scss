@@ -219,6 +219,7 @@ select {
     // width: 90%; //
     .location-list {
       overflow-y: scroll;
+      height: 180px;
     }
     h4 {
       font-size: 20px;
@@ -247,6 +248,12 @@ select {
   .home-page-wrap {
     .member-chart-wrap {
       width: 400px;
+    }
+    .location-list-wrap {
+      .location-list {
+        overflow-y: scroll;
+        height: 300px;
+      }
     }
   }
 }

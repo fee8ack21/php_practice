@@ -115,7 +115,7 @@ if (isset($_SESSION['admin_state'])) {
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-chart" role="tabpanel" aria-labelledby="pills-chart-tab">
-                                <div class="d-lg-flex justify-content-center align-items-center bg-light rounded py-3" style="height:calc(100vh - 203px);overflow-y:scroll;">
+                                <div class="d-lg-flex justify-content-center align-items-center bg-light rounded py-3" style="min-height:calc(100vh - 203px);overflow-y:scroll;">
                                     <div class="location-chart-wrap mb-5 mb-lg-0">
                                         <canvas id="location-chart"></canvas>
                                     </div>
@@ -127,7 +127,7 @@ if (isset($_SESSION['admin_state'])) {
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="pills-member" role="tabpanel" aria-labelledby="pills-member-tab">
-                                <div class="d-flex flex-column justify-content-center align-items-center bg-light rounded py-3" style="height:calc(100vh - 203px);overflow-y:scroll;">
+                                <div class="d-flex flex-column justify-content-center align-items-center bg-light rounded py-3" style="min-height:calc(100vh - 203px);overflow-y:scroll;">
                                     <div>
                                         <div class="d-flex justify-content-center align-items-center mb-0 mb-sm-3">
                                             <button id="member-chart-year-minus" class="btn btn-light mr-3">-</button>
@@ -144,7 +144,7 @@ if (isset($_SESSION['admin_state'])) {
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="pills-map" role="tabpanel" aria-labelledby="pills-map-tab">
-                                <div id="location-map" class="location-map rounded" style="height:calc(100vh - 203px)"></div>
+                                <div id="location-map" class="location-map rounded" style="min-height:calc(100vh - 203px)"></div>
                             </div>
                         </div>
                     </div>

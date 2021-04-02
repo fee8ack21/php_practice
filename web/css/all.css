@@ -222,6 +222,7 @@ select {
 
 .home-page-wrap .location-list-wrap .location-list {
   overflow-y: scroll;
+  height: 180px;
 }
 
 .home-page-wrap .location-list-wrap h4 {
@@ -254,6 +255,10 @@ select {
 @media screen and (min-width: 500px) {
   .home-page-wrap .member-chart-wrap {
     width: 400px;
+  }
+  .home-page-wrap .location-list-wrap .location-list {
+    overflow-y: scroll;
+    height: 300px;
   }
 }
 
