@@ -104,10 +104,13 @@ if (isset($_SESSION['admin_state'])) {
                     <div class="">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-chart" role="tab" aria-controls="pills-chart" aria-selected="false">圖表</a>
+                                <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-chart" role="tab" aria-controls="pills-chart" aria-selected="false">據點</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">地圖</a>
+                                <a class="nav-link" id="pills-member-tab" data-toggle="pill" href="#pills-member" role="tab" aria-controls="pills-member" aria-selected="true">會員</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pills-map-tab" data-toggle="pill" href="#pills-map" role="tab" aria-controls="pills-map" aria-selected="true">地圖</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
@@ -123,11 +126,24 @@ if (isset($_SESSION['admin_state'])) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="tab-pane fade" id="pills-member" role="tabpanel" aria-labelledby="pills-member-tab">
+                                <div class="d-flex flex-column justify-content-center align-items-center bg-light rounded py-3" style="height:calc(100vh - 203px);overflow-y:scroll;">
+                                    <div class="d-flex justify-content-center align-items-center mb-3">
+                                        <button id="member-chart-year-minus" class="btn btn-light mr-3">-</button>
+                                        <h4 id="member-chart-year" class="mb-0"></h4>
+                                        <button id="member-chart-year-add" class="btn btn-light ml-3">+</button>
+                                    </div>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <div class="member-chart-wrap" style="width: 600px;">
+                                            <canvas id="member-chart" width="400" height="400"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-map" role="tabpanel" aria-labelledby="pills-map-tab">
                                 <div id="location-map" class="location-map rounded" style="height:calc(100vh - 203px)"></div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </main>

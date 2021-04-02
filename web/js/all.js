@@ -4,18 +4,22 @@ $(document).ready(function () {
   let adminAJAX = '';
   let homeURL = '';
   let homeAJAX = '';
+  let homeMemberAJAX = '';
   let locationURL = '';
   if (window.location.host === 'pin-jui-php-dashboard.herokuapp.com') {
     adminURL = '/';
     adminAJAX = 'https://pin-jui-php-dashboard.herokuapp.com/doAction_dashboard.php?state=login';
     homeURL = '/dashboard_home.php';
     homeAJAX = 'https://pin-jui-php-dashboard.herokuapp.com/doAction_dashboard.php?state=home';
+    homeMemberAJAX =
+      'https://pin-jui-php-dashboard.herokuapp.com/doAction_dashboard.php?state=homeMember';
     locationURL = '/dashboard_location.php';
   } else {
     adminURL = '/php_practice/web/';
     adminAJAX = 'http://localhost/php_practice/web/doAction_dashboard.php?state=login';
     homeURL = '/php_practice/web/dashboard_home.php';
     homeAJAX = 'http://localhost/php_practice/web/doAction_dashboard.php?state=home';
+    homeMemberAJAX = 'http://localhost/php_practice/web/doAction_dashboard.php?state=homeMember';
     locationURL = '/php_practice/web/dashboard_location.php';
   }
   // 登入頁功能
@@ -270,6 +274,210 @@ $(document).ready(function () {
       },
     });
     //
+    $.ajax({
+      url: homeMemberAJAX,
+      type: 'get',
+      error: function (xhr) {
+        console.log(xhr);
+      },
+      success: function (response) {
+        let jsonResponse = JSON.parse(response);
+        let targetYear = String(new Date().getFullYear());
+        let janLen,
+          febLen,
+          marLen,
+          aprLen,
+          mayLen,
+          junLen,
+          julLen,
+          augLen,
+          sepLen,
+          octLen,
+          novLen,
+          decLen,
+          dataArr;
+        //
+        function yearChange(changeState = 'init') {
+          janLen = 0;
+          febLen = 0;
+          marLen = 0;
+          aprLen = 0;
+          mayLen = 0;
+          junLen = 0;
+          julLen = 0;
+          augLen = 0;
+          sepLen = 0;
+          octLen = 0;
+          novLen = 0;
+          decLen = 0;
+          if (changeState === 'minus') {
+            targetYear = String(Number(targetYear) - 1);
+          } else if (changeState === 'add') {
+            targetYear = String(Number(targetYear) + 1);
+          } else if (changeState === 'init') {
+            targetYear = '2021';
+          }
+          for (let i = 0; i < jsonResponse.length; i++) {
+            registrationTimeArr = jsonResponse[i].registrationTime.split('-', 3);
+            if (registrationTimeArr[0] === targetYear) {
+              switch (registrationTimeArr[1]) {
+                case '01':
+                  janLen += 1;
+                  break;
+                case '02':
+                  febLen += 1;
+                  break;
+                case '03':
+                  marLen += 1;
+                  break;
+                case '04':
+                  aprLen += 1;
+                  break;
+                case '05':
+                  mayLen += 1;
+                  break;
+                case '06':
+                  junLen += 1;
+                  break;
+                case '07':
+                  julLen += 1;
+                  break;
+                case '08':
+                  augLen += 1;
+                  break;
+                case '09':
+                  sepLen += 1;
+                  break;
+                case '10':
+                  octLen += 1;
+                  break;
+                case '11':
+                  novLen += 1;
+                  break;
+                case '12':
+                  decLen += 1;
+                  break;
+              }
+            }
+          }
+          dataArr = [
+            janLen,
+            febLen,
+            marLen,
+            aprLen,
+            mayLen,
+            junLen,
+            julLen,
+            augLen,
+            sepLen,
+            octLen,
+            novLen,
+            decLen,
+          ]; //
+          if (changeState === 'minus' || changeState === 'add') {
+            memberChart.data.datasets.label = targetYear;
+            memberChart.data.datasets[0].data.splice(0, 12);
+            memberChart.data.datasets.forEach((dataset) => {
+              dataset.data = dataArr;
+            });
+            memberChart.update();
+          }
+          //
+          $('#member-chart-year').text(targetYear);
+        }
+        //
+        yearChange();
+        //
+        var ctx = document.getElementById('member-chart').getContext('2d');
+        var memberChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [
+              '一月',
+              '二月',
+              '三月',
+              '四月',
+              '五月',
+              '六月',
+              '七月',
+              '八月',
+              '九月',
+              '十月',
+              '十一月',
+              '十二月',
+            ],
+            datasets: [
+              {
+                // label: targetYear,
+                data: dataArr,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                ],
+                borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            legend: {
+              display: false,
+            },
+            tooltips: {
+              titleAlign: 'center',
+              bodyAlign: 'center',
+              callbacks: {
+                // label: function (tooltipItems, data) {
+                //   var i = tooltipItems.index;
+                //   return data.datasets[0].data[i] + '人';
+                // },
+              },
+            },
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
+          },
+        });
+        //
+        $('#member-chart-year-minus').on('click', function () {
+          yearChange('minus');
+        });
+        $('#member-chart-year-add').on('click', function () {
+          if (new Date().getFullYear() > Number(targetYear)) {
+            yearChange('add');
+          }
+        });
+      },
+    });
   }
   // 據點消息首頁 RWD
   if (window.location.pathname === locationURL) {

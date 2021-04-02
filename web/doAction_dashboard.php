@@ -69,6 +69,22 @@ if ($state_get === 'home') {
             $rows = mysqli_fetch_all($res1, MYSQLI_ASSOC);
             echo json_encode($rows, JSON_UNESCAPED_UNICODE);
         } else {
+            echo '無會員內容';
+        }
+    } else {
+        // echo '語句1執行失敗';
+    }
+}
+// 
+if ($state_get === 'homeMember') {
+    $query1 = "select * from dashboard_member WHERE valid = 1";
+    $res1 = mysqli_query($link, $query1);
+    if ($res1) {
+        // echo '語句1執行成功';
+        if (mysqli_num_rows($res1) > 0) {
+            $rows = mysqli_fetch_all($res1, MYSQLI_ASSOC);
+            echo json_encode($rows, JSON_UNESCAPED_UNICODE);
+        } else {
             echo '無據點內容';
         }
     } else {
