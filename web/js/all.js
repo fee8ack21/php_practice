@@ -502,6 +502,15 @@ $(document).ready(function () {
     window.onresize = function () {
       locationHomeRWD();
     };
+    // 
+    // function locationHomeRWD2() {
+    //   if ($(window).width() < 992) {
+    //     $('#search-btn').text('').append('搜尋');
+    //   } else {
+    //     $('#search-btn').text('').append('<i class="fas fa-search mr-1"></i>搜尋');
+    //   }
+    // }
+    // locationHomeRWD2();
   }
   // 據點消息 修改/修改 功能
   // 圖片上傳顯示
