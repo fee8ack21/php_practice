@@ -172,7 +172,7 @@ if ($res1) {
                         </div>
                         <div class="">
                             <form action="" class="d-flex justify-content-lg-end form-inline">
-                                <input name="location_search" style="font-size:14px;width:calc(100% - 89.61px);" class="form-control mr-2" type="search" placeholder="請輸入關鍵字" aria-label="Search">
+                                <input name="location_search" style="font-size:14px;width:calc(100% - 90px);" class="form-control mr-2" type="search" placeholder="請輸入關鍵字" aria-label="Search">
                                 <button id="search-btn" style="font-size:14px;height:35px;letter-spacing:0.2rem;" class="btn btn-outline-success" type="submit"><i class="fas fa-search mr-1"></i>搜尋</button>
                             </form>
                         </div>
