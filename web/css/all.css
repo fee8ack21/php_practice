@@ -220,7 +220,7 @@ select {
 
 .home-page-wrap .location-list-wrap .location-list {
   overflow-y: scroll;
-  height: 180px;
+  min-height: 180px;
 }
 
 .home-page-wrap .location-list-wrap h4 {
@@ -256,7 +256,6 @@ select {
   }
   .home-page-wrap .location-list-wrap .location-list {
     overflow-y: scroll;
-    height: 300px;
   }
 }
 

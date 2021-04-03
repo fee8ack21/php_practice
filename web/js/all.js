@@ -255,23 +255,23 @@ $(document).ready(function () {
             $('#location-list-title').text('').append('總覽');
           }
         });
-        //
-        // function chartListRWD() {
-        //   let chart = document.getElementById('location-chart');
-        //   let chartHeight = chart.offsetHeight;
-        //   // let totalLastHeight = 337 + chartHeight; // test
-        //   let totalLastHeight = 327 + chartHeight;
-        //   let chartList = document.getElementById('location-list');
-        //   if ($(window).width() < 992) {
-        //     chartList.style['min-height'] = 'calc(100vh - ' + totalLastHeight + 'px)';
-        //   } else {
-        //     chartList.style['min-height'] = '500px';
-        //   }
-        // }
-        // chartListRWD();
-        // window.onresize = function () {
-        //   chartListRWD();
-        // };
+        
+        function chartListRWD() {
+          let chart = document.getElementById('location-chart');
+          let chartHeight = chart.offsetHeight;
+          // let totalLastHeight = 337 + chartHeight; // test
+          let totalLastHeight = 327 + chartHeight;
+          let chartList = document.getElementById('location-list');
+          if ($(window).width() < 992) {
+            chartList.style['height'] = 'calc(100vh - ' + totalLastHeight + 'px)';
+          } else {
+            chartList.style['height'] = '500px';
+          }
+        }
+        chartListRWD();
+        window.onresize = function () {
+          chartListRWD();
+        };
       },
     });
     //
