@@ -25,7 +25,7 @@ if (isset($_SESSION['admin_state'])) {
 
 <body>
     <div class="dashboard-wrap">
-        <header class="d-flex justify-content-between justify-content-md-end bg-dark py-3 px-3" style="height: 60px;">
+        <header class="position-fixed d-flex justify-content-between justify-content-md-end bg-dark py-3 px-3" style="top:0px;width:100vw;height: 60px;">
             <div class="header-icon-wrap d-flex align-items-center d-md-none">
                 <a href="#" class="accordion-burger d-flex align-items-center text-decoration-none">
                     <i class="fas fa-bars text-white"></i>
@@ -40,8 +40,8 @@ if (isset($_SESSION['admin_state'])) {
                 </a>
             </div>
         </header>
-        <div class="d-flex position-relative">
-            <aside style="width: 250px;">
+        <div class="d-flex position-absolute" style="top:60px">
+            <aside class="position-fixed" style="width: 250px;">
                 <ul class="accordion bg-secondary p-2 mb-0 list-unstyled" style="height: calc(100vh - 60px);overflow-y:scroll;">
                     <li>
                         <a href="./dashboard_home.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
@@ -113,9 +113,9 @@ if (isset($_SESSION['admin_state'])) {
                                 <a class="nav-link" id="pills-map-tab" data-toggle="pill" href="#pills-map" role="tab" aria-controls="pills-map" aria-selected="true">地圖</a>
                             </li>
                         </ul>
-                        <div class="tab-content" id="pills-tabContent" style="height:calc(100vh - 203px);overflow-y:scroll;">
+                        <div class="tab-content" id="pills-tabContent" style="height:calc(100vh - 203px);">
                             <div class="tab-pane fade show active" id="pills-chart" role="tabpanel" aria-labelledby="pills-chart-tab">
-                                <div class="d-lg-flex justify-content-center align-items-center bg-light rounded py-3" style="min-height:calc(100vh - 203px);overflow-y:scroll;">
+                                <div class="d-lg-flex justify-content-center align-items-center bg-light rounded py-3" style="min-height:calc(100vh - 203px);">
                                     <div class="location-chart-wrap mb-5 mb-lg-0">
                                         <canvas id="location-chart"></canvas>
                                     </div>
@@ -127,7 +127,7 @@ if (isset($_SESSION['admin_state'])) {
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="pills-member" role="tabpanel" aria-labelledby="pills-member-tab">
-                                <div class="d-flex flex-column justify-content-center align-items-center bg-light rounded py-3" style="min-height:calc(100vh - 203px);overflow-y:scroll;">
+                                <div class="d-flex flex-column justify-content-center align-items-center bg-light rounded py-3" style="min-height:calc(100vh - 203px);">
                                     <div>
                                         <div class="d-flex justify-content-center align-items-center mb-0 mb-sm-3">
                                             <button id="member-chart-year-minus" class="btn btn-light mr-3">-</button>

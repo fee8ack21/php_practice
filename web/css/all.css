@@ -61,6 +61,10 @@ select {
   }
 }
 
+.dashboard-wrap header {
+  z-index: 9999;
+}
+
 .dashboard-wrap .header-icon-wrap {
   font-size: 12px;
 }
@@ -82,14 +86,13 @@ select {
 }
 
 .dashboard-wrap aside {
-  position: absolute;
+  position: fixed;
   left: -250px;
   -webkit-transition: 0.15s;
   transition: 0.15s;
 }
 
 .dashboard-wrap aside.active {
-  position: absolute !important;
   left: 0px !important;
 }
 
@@ -146,7 +149,6 @@ select {
 .dashboard-wrap main {
   width: 100vw;
   height: calc(100vh - 60px);
-  overflow-y: scroll;
   position: absolute;
   left: 0px;
   -webkit-transition: 0.15s;
@@ -164,7 +166,7 @@ select {
 
 @media screen and (min-width: 768px) {
   .dashboard-wrap aside {
-    position: absolute;
+    position: fixed;
     left: 0px;
   }
   .dashboard-wrap main {
@@ -172,10 +174,6 @@ select {
     position: absolute;
     left: 250px;
   }
-}
-
-.home-page-wrap {
-  overflow-y: scroll;
 }
 
 .home-page-wrap .location-map .gm-style-iw {
@@ -319,8 +317,8 @@ select {
 }
 
 .location-page-wrap .table-wrap {
-  overflow-y: scroll;
-  height: calc(100vh - 340px);
+  overflow-x: scroll;
+  min-height: calc(100vh - 340px);
 }
 
 .location-page-wrap .table-wrap table th {
@@ -343,22 +341,15 @@ select {
           box-shadow: none;
 }
 
-@media screen and (min-width: 768px) {
-  .location-page-wrap .table-wrap {
-    overflow-y: scroll;
-  }
-}
-
 @media screen and (min-width: 992px) {
   .location-page-wrap .table-wrap {
-    height: calc(100vh - 289px);
+    min-height: calc(100vh - 289px);
   }
 }
 
 .location-mod-wrap,
 .location-add-wrap {
-  height: calc(100vh - 150px);
-  overflow-y: scroll;
+  min-height: calc(100vh - 150px);
 }
 
 .location-mod-wrap .mod-modal-img,

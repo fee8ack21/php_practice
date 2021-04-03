@@ -69,6 +69,9 @@ select {
 
 // Layout
 .dashboard-wrap {
+  header {
+    z-index: 9999;
+  }
   // 頁首
   .header-icon-wrap {
     font-size: 12px;
@@ -88,11 +91,10 @@ select {
   }
   // 選單
   aside {
-    position: absolute;
+    position: fixed;
     left: -250px;
     transition: 0.15s;
     &.active {
-      position: absolute !important;
       left: 0px !important;
     }
     //
@@ -141,7 +143,7 @@ select {
   main {
     width: 100vw;
     height: calc(100vh - 60px);
-    overflow-y: scroll;
+    // overflow-y: scroll;
     position: absolute;
     left: 0px;
     transition: 0.15s;
@@ -161,7 +163,7 @@ select {
 @media screen and (min-width: 768px) {
   .dashboard-wrap {
     aside {
-      position: absolute;
+      position: fixed;
       left: 0px;
     }
     //
@@ -175,7 +177,7 @@ select {
 
 // 首頁
 .home-page-wrap {
-  overflow-y: scroll;
+  // overflow-y: scroll;
   .location-map {
     .gm-style-iw {
       max-width: 280px !important;
@@ -326,8 +328,8 @@ select {
   }
   //
   .table-wrap {
-    overflow-y: scroll;
-    height: calc(100vh - 340px);
+    overflow-x: scroll;
+    min-height: calc(100vh - 340px);
     table {
       th {
         min-width: 90px;
@@ -357,14 +359,14 @@ select {
 @media screen and (min-width: 768px) {
   .location-page-wrap {
     .table-wrap {
-      overflow-y: scroll;
+      // overflow-x: scroll;
     }
   }
 }
 @media screen and (min-width: 992px) {
   .location-page-wrap {
     .table-wrap {
-      height: calc(100vh - 289px);
+      min-height: calc(100vh - 289px);
     }
   }
 }
@@ -372,8 +374,8 @@ select {
 // 據點消息頁 - 修改 / 據點消息頁 - 新增
 .location-mod-wrap,
 .location-add-wrap {
-  height: calc(100vh - 150px);
-  overflow-y: scroll;
+  min-height: calc(100vh - 150px);
+  // overflow-y: scroll;
 }
 
 .location-mod-wrap .mod-modal-img,

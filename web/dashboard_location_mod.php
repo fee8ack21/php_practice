@@ -42,7 +42,7 @@ if ($res1) {
 
 <body>
     <div class="dashboard-wrap">
-        <header class="d-flex justify-content-between justify-content-md-end bg-dark py-3 px-3 px-md-5" style="height: 60px;">
+        <header class="position-fixed d-flex justify-content-between justify-content-md-end bg-dark py-3 px-3 px-md-5" style="top:0px;width:100vw;height: 60px;">
             <div class="header-icon-wrap d-flex align-items-center d-md-none">
                 <a href="#" class="accordion-burger d-flex align-items-center text-decoration-none">
                     <i class="fas fa-bars text-white"></i>
@@ -57,8 +57,8 @@ if ($res1) {
                 </a>
             </div>
         </header>
-        <div class="d-flex position-relative">
-            <aside style="width: 250px;">
+        <div class="d-flex position-absolute" style="top:60px">
+            <aside class="position-fixed" style="width: 250px;">
                 <ul class="accordion bg-secondary p-2 mb-0 list-unstyled" style="height: calc(100vh - 60px);overflow-y:scroll;">
                     <li>
                         <a href="./dashboard_home.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">

@@ -57,7 +57,7 @@ if ($res1) {
 
 <body>
     <div class="dashboard-wrap">
-        <header class="d-flex justify-content-between justify-content-md-end bg-dark py-3 px-3" style="height: 60px;">
+        <header class="position-fixed d-flex justify-content-between justify-content-md-end bg-dark py-3 px-3" style="top:0px;width:100vw;height: 60px;">
             <div class="header-icon-wrap d-flex align-items-center d-md-none">
                 <a href="#" class="accordion-burger d-flex align-items-center text-decoration-none">
                     <i class="fas fa-bars text-white"></i>
@@ -72,8 +72,8 @@ if ($res1) {
                 </a>
             </div>
         </header>
-        <div class="d-flex position-relative">
-            <aside style="width: 250px;">
+        <div class="d-flex position-absolute" style="top:60px">
+            <aside class="position-fixed" style="width: 250px;">
                 <ul class="accordion bg-secondary p-2 mb-0 list-unstyled" style="height: calc(100vh - 60px);overflow-y:scroll;">
                     <li>
                         <a href="./dashboard_home.php" class="accordion-item d-flex align-items-center bg-secondary px-3 mb-0 text-decoration-none text-white rounded">
@@ -126,7 +126,7 @@ if ($res1) {
                     </li>
                 </ul>
             </aside>
-            <main class="position-absolute px-0 px-md-4 py-2" style="overflow-y:hidden">
+            <main class="position-absolute px-0 px-md-4 py-2">
                 <nav style="--bs-breadcrumb-divider: '>';font-size:12px;font-weight:bold;" aria-label="breadcrumb">
                     <ol class="breadcrumb" style="background-color: transparent;">
                         <li class="breadcrumb-item"><a href="./dashboard_home.php">首頁</a></li>
@@ -171,7 +171,7 @@ if ($res1) {
                                 <i class="fas fa-redo mr-1"></i>清除條件</a>
                         </div>
                         <div class="">
-                            <form action="" class="d-flex justify-content-lg-end form-inline">
+                            <form action="" class="d-flex justify-content-lg-end">
                                 <input name="location_search" style="font-size:14px;width:calc(100% - 90px);" class="form-control mr-2" type="search" placeholder="請輸入關鍵字" aria-label="Search">
                                 <button id="search-btn" style="font-size:14px;height:35px;letter-spacing:0.2rem;" class="btn btn-outline-success" type="submit"><i class="fas fa-search mr-1"></i>搜尋</button>
                             </form>
