@@ -126,7 +126,7 @@ if ($res1) {
                     </li>
                 </ul>
             </aside>
-            <main class="position-absolute px-0 px-md-4 py-2">
+            <main class="position-absolute px-0 px-md-4 py-2" style="overflow-y:hidden">
                 <nav style="--bs-breadcrumb-divider: '>';font-size:12px;font-weight:bold;" aria-label="breadcrumb">
                     <ol class="breadcrumb" style="background-color: transparent;">
                         <li class="breadcrumb-item"><a href="./dashboard_home.php">首頁</a></li>
